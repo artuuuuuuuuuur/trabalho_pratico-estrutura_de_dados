@@ -1,6 +1,6 @@
 Write-Host "Compilando projeto C (compilação recursiva)..."
 
-$utilsCFiles = Get-ChildItem -Path ./utils -Recurse -Include *.c | ForEach-Object { $_.FullName }
+$utilsCFiles = Get-ChildItem -Path ./src -Recurse -Include *.c *.h | ForEach-Object { $_.FullName }
 
 $sourceFiles = @("main.c") + $utilsCFiles
 
