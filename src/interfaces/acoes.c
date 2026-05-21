@@ -12,4 +12,10 @@ int emprestimoLivro(const Livro * livro, Lista* listaDeEmprestimos, const char *
     strcpy(novo_emprestimo.tituloLivro, livro->titulo);
     strcpy(novo_emprestimo.nomeUsuario, nomeUsuario);
     inserirEmprestimo(listaDeEmprestimos, novo_emprestimo);
+    // Emprestar apenas se a inserção na lista ocorrer
+    emprestarExemplar(livro);
+}
+
+int devolverLivro(Livro* Livro, Lista* listaDeEmprestimos) {
+    
 }

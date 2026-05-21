@@ -11,7 +11,7 @@ int listarLivrosCrescente(/*TAD Árvore*/) {}
 int listarLivrosPre(/*TAD Árvore*/) {}
 int listarLivrosPos(/*TAD Árvore*/) {}
 int emprestimoLivro(Livro* livro, Lista* listaDeEmprestimos) {}
-int devolverLivro(Livro* Livro, Lista* listaDeImprestimos) {}
+int devolverLivro(Livro* Livro, Lista* listaDeEmprestimos) {}
 void exibirReservas(Fila* filaDeReservas) {}
 int exibirQuantidadeLivros(/*TAD Árvore*/) {}
 int exibirAlturaArvore(/*TAD Árvore*/) {}
