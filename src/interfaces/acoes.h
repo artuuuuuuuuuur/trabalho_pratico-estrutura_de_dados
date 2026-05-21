@@ -6,12 +6,11 @@
 #define ACOES_H
 
 int cadastrarNovoLivro(Livro* livro /*TAD Árvore*/) {}
-int buscarLivroPorCodigo(Livro* livro) {}
-char buscarLivroPorTitulo(Livro* livro) {}
+int buscarLivroPorCodigo(Livro* livro /*TAD Árvore*/) {}
 int listarLivrosCrescente(/*TAD Árvore*/) {}
 int listarLivrosPre(/*TAD Árvore*/) {}
 int listarLivrosPos(/*TAD Árvore*/) {}
-int emprestimoLivro(Livro* livro, Lista* listaDeImprestimos) {}
+int emprestimoLivro(Livro* livro, Lista* listaDeEmprestimos) {}
 int devolverLivro(Livro* Livro, Lista* listaDeImprestimos) {}
 void exibirReservas(Fila* filaDeReservas) {}
 int exibirQuantidadeLivros(/*TAD Árvore*/) {}
