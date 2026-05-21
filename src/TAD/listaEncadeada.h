@@ -20,6 +20,8 @@ Lista * criarLista () ;
 
 void inserirEmprestimo ( Lista * lista , Emprestimo emprestimo ) ;
 
+void deletarEmprestimo(Lista *lista, Emprestimo emprestimo);
+
 void listarEmprestimos ( Lista * lista ) ;
 
 int listaVazia ( Lista * lista ) ;

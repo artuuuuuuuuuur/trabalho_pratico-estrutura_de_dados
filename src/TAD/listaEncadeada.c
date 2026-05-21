@@ -31,7 +31,7 @@ void inserirEmprestimo ( Lista * lista , Emprestimo emprestimo ){
     }
 };
 
-void deletarEmprestimo( Lista * lista , Emprestimo emprestimo ){
+void deletarEmprestimo(Lista * lista , Emprestimo emprestimo ){
     if(lista->inicio == NULL){
         printf("A lista está vazia.\n");
         return;
