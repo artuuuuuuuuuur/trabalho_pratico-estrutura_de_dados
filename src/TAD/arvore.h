@@ -41,4 +41,6 @@ NoArvore* rotacaoDireita(NoArvore *y);
 
 NoArvore* rotacaoEsquerda(NoArvore *x);
 
+NoArvore* inserirAVL(NoArvore *raiz, Livro *livro);
+
 void liberarArvore(NoArvore *no);

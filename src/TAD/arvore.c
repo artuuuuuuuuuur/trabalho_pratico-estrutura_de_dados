@@ -3,6 +3,8 @@
 
 #include "arvore.h"
 
+// Funções auxiliares para balanceamento e implementação da árvore AVL
+
 NoArvore* criarNo(Livro *livro) {
     NoArvore *novo = (NoArvore*) malloc(sizeof(NoArvore));
     if (novo == NULL) {
@@ -19,10 +21,13 @@ NoArvore* criarNo(Livro *livro) {
 };
 
 int fatorBalanceamento(NoArvore *n) {
-    if (n == NULL){
+    if (n == NULL) {
         return 0;
     }
-    return calcularAlturaArvore(n->esquerda) - calcularAlturaArvore(n->direita);
+    Arvore left, right;
+    left.raiz = n->esquerda;
+    right.raiz = n->direita;
+    return calcularAlturaArvore(&left) - calcularAlturaArvore(&right);
 };
 
 int maior(int a, int b) {
@@ -36,10 +41,13 @@ NoArvore* rotacaoDireita(NoArvore *y) {
     x->direita = y;
     y->esquerda = T2;
 
-    y->altura = maior(calcularAlturaArvore(y->esquerda),
-    calcularAlturaArvore(y->direita)) + 1;
-    x->altura = maior(calcularAlturaArvore(x->esquerda),
-    calcularAlturaArvore(x->direita)) + 1;
+    Arvore subLeft, subRight;
+    subLeft.raiz = y->esquerda;
+    subRight.raiz = y->direita;
+    y->altura = 1 + maior(calcularAlturaArvore(&subLeft), calcularAlturaArvore(&subRight));
+    subLeft.raiz = x->esquerda;
+    subRight.raiz = x->direita;
+    x->altura = 1 + maior(calcularAlturaArvore(&subLeft), calcularAlturaArvore(&subRight));
 
     return x;
 };
@@ -51,38 +59,30 @@ NoArvore* rotacaoEsquerda(NoArvore *x) {
     y->esquerda = x;
     x->direita = T2;
 
-    x->altura = maior(calcularAlturaArvore(x->esquerda),
-    calcularAlturaArvore(x->direita)) + 1;
-    y->altura = maior(calcularAlturaArvore(y->esquerda),
-    calcularAlturaArvore(y->direita)) + 1;
+    Arvore subLeft2, subRight2;
+    subLeft2.raiz = x->esquerda;
+    subRight2.raiz = x->direita;
+    x->altura = 1 + maior(calcularAlturaArvore(&subLeft2), calcularAlturaArvore(&subRight2));
+    subLeft2.raiz = y->esquerda;
+    subRight2.raiz = y->direita;
+    y->altura = 1 + maior(calcularAlturaArvore(&subLeft2), calcularAlturaArvore(&subRight2));
 
     return y;
 };
 
-Arvore * criarArvore (){
-    Arvore * arvore = (Arvore *) malloc(sizeof(Arvore));
-    if (arvore != NULL) {
-        arvore->raiz = NULL;
-    }
-    return arvore;
-};
-
-NoArvore* inserirLivroArvore(Arvore *arvore, Livro *livro) {
-    NoArvore* raiz = arvore -> raiz;
-
+NoArvore* inserirAVL(NoArvore *raiz, Livro *livro){
     if (raiz == NULL){
         return criarNo(livro);
     }
 
     if (livro->codigo < raiz->livro->codigo){
-        raiz->esquerda = inserirLivroArvore(raiz->esquerda, livro);
+        raiz->esquerda = inserirAVL(raiz->esquerda, livro);
     }else if (livro->codigo > raiz->livro->codigo){
-        raiz->direita = inserirLivroArvore(raiz->direita, livro);
+        raiz->direita = inserirAVL(raiz->direita, livro);
     }else{
         return raiz;
     }
-    raiz->altura = 1 + maior(calcularAlturaArvore(raiz->esquerda),
-    calcularAlturaArvore(raiz->direita));
+    raiz->altura = 1 + maior(calcularAlturaArvore(&(Arvore){raiz->esquerda}), calcularAlturaArvore(&(Arvore){raiz->direita}));
 
     int fb = fatorBalanceamento(raiz);
     if (fb > 1 && livro->codigo < raiz->esquerda->livro->codigo){
@@ -106,6 +106,34 @@ NoArvore* inserirLivroArvore(Arvore *arvore, Livro *livro) {
     return raiz;
 };
 
+void liberarArvore(NoArvore *no) {
+    if (no != NULL) {
+        liberarArvore(no->esquerda);
+        liberarArvore(no->direita);
+        free(no->livro);
+        free(no);
+    }
+};
+
+// Implementação das funções obrigatórias
+
+Arvore * criarArvore (){
+    Arvore * arvore = (Arvore *) malloc(sizeof(Arvore));
+    if (arvore != NULL) {
+        arvore->raiz = NULL;
+    }
+    return arvore;
+};
+
+NoArvore* inserirLivroArvore(Arvore *arvore, Livro *livro) {
+    if (arvore == NULL) {
+        return NULL;
+    }
+
+    arvore->raiz = inserirAVL(arvore->raiz, livro);
+    return arvore->raiz;
+};
+
 Livro * buscarLivroArvore ( Arvore * arvore , int codigo ){
     NoArvore* atual = arvore -> raiz;
     while (atual != NULL){
@@ -123,9 +151,12 @@ Livro * buscarLivroArvore ( Arvore * arvore , int codigo ){
 void listarLivrosEmOrdem ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
     if (no != NULL){
-        listarLivrosPreOrdem(no -> esquerda);
+        Arvore subArvore;
+        subArvore.raiz = no->esquerda;
+        listarLivrosEmOrdem(&subArvore);
         printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
-        listarLivrosPreOrdem(no -> direita);
+        subArvore.raiz = no->direita;
+        listarLivrosEmOrdem(&subArvore);
     }
 };
 
@@ -133,26 +164,36 @@ void listarLivrosPreOrdem ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
     if (no != NULL){
         printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
-        listarLivrosPreOrdem(no -> esquerda);
-        listarLivrosPreOrdem(no -> direita);
+        Arvore subArvore;
+        subArvore.raiz = no->esquerda;
+        listarLivrosPreOrdem(&subArvore);
+        subArvore.raiz = no->direita;
+        listarLivrosPreOrdem(&subArvore);
     }
 };
 
 void listarLivrosPosOrdem ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
     if (no != NULL){
-        listarLivrosPosOrdem(no -> esquerda);
-        listarLivrosPosOrdem(no -> direita);
+        Arvore subArvore;
+        subArvore.raiz = no->esquerda;
+        listarLivrosPosOrdem(&subArvore);
+        subArvore.raiz = no->direita;
+        listarLivrosPosOrdem(&subArvore);
         printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
     }
 };
 
 int contarLivros ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
+    Arvore * subArvoreEsquerda = (Arvore *) malloc(sizeof(Arvore));
+    Arvore * subArvoreDireita = (Arvore *) malloc(sizeof(Arvore));
     if (no == NULL){
         return 0;
     }else{
-        return 1 + contarLivros(no -> esquerda) + contarLivros(no -> direita);
+        subArvoreEsquerda->raiz = no->esquerda;
+        subArvoreDireita->raiz = no->direita;
+        return 1 + contarLivros(subArvoreEsquerda) + contarLivros(subArvoreDireita);
     }
 };
 
@@ -163,13 +204,4 @@ int calcularAlturaArvore ( Arvore * arvore ){
     }
 
     return no->altura;
-};
-
-void liberarArvore(NoArvore *no) {
-    if (no != NULL) {
-        liberarArvore(no->esquerda);
-        liberarArvore(no->direita);
-        free(no->livro);
-        free(no);
-    }
 };
