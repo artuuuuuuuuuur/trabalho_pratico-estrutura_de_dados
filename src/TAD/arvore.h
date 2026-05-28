@@ -11,6 +11,26 @@ typedef struct Arvore {
     NoArvore * raiz ;
 } Arvore ;
 
+// Requisitos Obrigatórios
+
+Arvore * criarArvore ();
+
+NoArvore* inserirLivroArvore ( Arvore * arvore , Livro * livro );
+
+Livro * buscarLivroArvore ( Arvore * arvore , int codigo );
+
+void listarLivrosEmOrdem ( Arvore * arvore );
+
+void listarLivrosPreOrdem ( Arvore * arvore );
+
+void listarLivrosPosOrdem ( Arvore * arvore );
+
+int contarLivros ( Arvore * arvore );
+
+int calcularAlturaArvore ( Arvore * arvore );
+
+// Opcionais (Implementação de funções auxiliares para balanceamento da árvore AVL)
+
 NoArvore* criarNo(Livro *livro);
 
 int fatorBalanceamento(NoArvore *n);
@@ -20,21 +40,5 @@ int maior(int a, int b);
 NoArvore* rotacaoDireita(NoArvore *y);
 
 NoArvore* rotacaoEsquerda(NoArvore *x);
-
-Arvore * criarArvore ();
-
-NoArvore* inserirLivroArvore ( NoArvore * raiz , Livro * livro );
-
-Livro * buscarLivroArvore ( NoArvore * no , int codigo );
-
-void listarLivrosEmOrdem ( NoArvore * no );
-
-void listarLivrosPreOrdem ( NoArvore * no );
-
-void listarLivrosPosOrdem ( NoArvore * no );
-
-int contarLivros ( NoArvore * no );
-
-int calcularAlturaArvore ( NoArvore * no );
 
 void liberarArvore(NoArvore *no);

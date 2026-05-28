@@ -67,7 +67,9 @@ Arvore * criarArvore (){
     return arvore;
 };
 
-NoArvore* inserirLivroArvore(NoArvore *raiz, Livro *livro) {
+NoArvore* inserirLivroArvore(Arvore *arvore, Livro *livro) {
+    NoArvore* raiz = arvore -> raiz;
+
     if (raiz == NULL){
         return criarNo(livro);
     }
@@ -104,8 +106,8 @@ NoArvore* inserirLivroArvore(NoArvore *raiz, Livro *livro) {
     return raiz;
 };
 
-Livro * buscarLivroArvore ( NoArvore * no , int codigo ){
-    NoArvore* atual = no;
+Livro * buscarLivroArvore ( Arvore * arvore , int codigo ){
+    NoArvore* atual = arvore -> raiz;
     while (atual != NULL){
         if (codigo == atual -> livro -> codigo){
             return atual -> livro;
@@ -118,7 +120,8 @@ Livro * buscarLivroArvore ( NoArvore * no , int codigo ){
     return NULL;
 };
 
-void listarLivrosEmOrdem ( NoArvore * no ){
+void listarLivrosEmOrdem ( Arvore * arvore ){
+    NoArvore * no = arvore -> raiz;
     if (no != NULL){
         listarLivrosPreOrdem(no -> esquerda);
         printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
@@ -126,7 +129,8 @@ void listarLivrosEmOrdem ( NoArvore * no ){
     }
 };
 
-void listarLivrosPreOrdem ( NoArvore * no ){
+void listarLivrosPreOrdem ( Arvore * arvore ){
+    NoArvore * no = arvore -> raiz;
     if (no != NULL){
         printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
         listarLivrosPreOrdem(no -> esquerda);
@@ -134,7 +138,8 @@ void listarLivrosPreOrdem ( NoArvore * no ){
     }
 };
 
-void listarLivrosPosOrdem ( NoArvore * no ){
+void listarLivrosPosOrdem ( Arvore * arvore ){
+    NoArvore * no = arvore -> raiz;
     if (no != NULL){
         listarLivrosPosOrdem(no -> esquerda);
         listarLivrosPosOrdem(no -> direita);
@@ -142,7 +147,8 @@ void listarLivrosPosOrdem ( NoArvore * no ){
     }
 };
 
-int contarLivros ( NoArvore * no ){
+int contarLivros ( Arvore * arvore ){
+    NoArvore * no = arvore -> raiz;
     if (no == NULL){
         return 0;
     }else{
@@ -150,7 +156,8 @@ int contarLivros ( NoArvore * no ){
     }
 };
 
-int calcularAlturaArvore ( NoArvore * no ){
+int calcularAlturaArvore ( Arvore * arvore ){
+    NoArvore * no = arvore -> raiz;
     if (no == NULL){
         return -1;
     }
