@@ -3,6 +3,19 @@
 #include<stdlib.h>
 #include<string.h>
 
+int cadastrarNovoLivro(Livro* livro, Arvore* arvore) {
+    if (livro == NULL) {
+        printf("Erro: o livro não existe.\n");
+        return 0;
+    }
+    if (arvore == NULL) {
+        printf("Erro: a árvore não existe.\n");
+        return 0;    
+    }
+    inserirLivroArvore(arvore, livro);
+    return 1;
+}
+
 int emprestimoLivro(const Livro * livro, Lista* listaDeEmprestimos, const char * nomeUsuario) {
     if(livro == NULL) {
         printf("Erro: o livro não existe.\n");
