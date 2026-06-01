@@ -44,8 +44,25 @@ int listarLivrosCrescente(Arvore* arvore) {
     return 1;
 }
 
+int listarLivrosPre(Arvore* arvore) {
+    if(arvore->raiz == NULL) {
+        printf("Erro: árvore está vazia.\n");
+        return 0;
+    }
 
+    listarLivrosPreOrdem(arvore);
+    return 1;
+}
 
+int listarLivrosPos(Arvore* arvore) {
+    if(arvore->raiz == NULL) {
+        printf("Erro: árvore está vazia.\n");
+        return 0;
+    }
+
+    listarLivrosPosOrdem(arvore);
+    return 1;
+}
 
 int emprestimoLivro(const Livro * livro, Lista* listaDeEmprestimos, const char * nomeUsuario) {
     if(livro == NULL) {
