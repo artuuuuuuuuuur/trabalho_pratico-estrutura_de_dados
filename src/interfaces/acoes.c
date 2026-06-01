@@ -29,11 +29,23 @@ int buscarLivroPorCodigo(Livro* livro, Arvore* arvore) {
     if(livroEncontrado == NULL) {
         printf("Livro não encontrado.\n");
         return 0;
-    }
-
+    }    
     exibirLivro(livroEncontrado);
     return 1;
 }
+
+int listarLivrosCrescente(Arvore* arvore) {
+    if(arvore->raiz == NULL) {
+        printf("Erro: árvore está vazia.\n");
+        return 0;
+    }
+
+    listarLivrosEmOrdem(arvore);
+    return 1;
+}
+
+
+
 
 int emprestimoLivro(const Livro * livro, Lista* listaDeEmprestimos, const char * nomeUsuario) {
     if(livro == NULL) {
