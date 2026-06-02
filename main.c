@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "src/interfaces/acoes.h"
 
 int main(void) {
     int opcao;
@@ -21,6 +22,7 @@ int main(void) {
         {
             case 1:
                 printf("Cadastrar Novo Livro\n");
+                buscarLivroPorCodigo(1, NULL);
                 break;
             case 2:
                 printf("Buscar Livro\n");

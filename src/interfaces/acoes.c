@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<stdbool.h>
 
 int cadastrarNovoLivro(Livro* livro, Arvore* arvore) {
     if (livro == NULL) {
@@ -15,6 +16,50 @@ int cadastrarNovoLivro(Livro* livro, Arvore* arvore) {
     inserirLivroArvore(arvore, livro);
     return 1;
 }
+
+int removerLivro(Livro *livro, Arvore *arvore, Lista* emprestimos, Fila* reservas) {
+    if (livro == NULL) {
+        printf("Erro: o livro não existe.\n");
+        return 0;
+    }
+    if (arvore == NULL) {
+        printf("Erro: a árvore não existe.\n");
+        return 0;    
+    }
+
+    // Tratamento de exceções
+    bool emprestimoEncontrado = false;
+    bool reservaEncontrada = false;
+    if(emprestimos->inicio != NULL) { // Livro emprestado
+        NoLista *temp = emprestimos->inicio;
+        while (temp != NULL && !emprestimoEncontrado) {
+            if (temp->emprestimo.codigoLivro == livro->codigo) emprestimoEncontrado = true;
+            else temp = temp->prox;
+        }
+    }
+    
+    if(reservas->inicio != NULL) { // Livro reservado
+        NoFila *temp = reservas->inicio;
+        while (temp != NULL && !reservaEncontrada) {
+            if (temp->reserva.codigoLivro == livro->codigo) reservaEncontrada = true;
+            else temp = temp->prox;
+        }
+    }
+    
+    if(emprestimoEncontrado || reservaEncontrada) {
+        printf("Erro: Você precisa quitar todas as pendências do livro.\n");
+        char errorMessage[100]= "Há pendências de ";
+        if(emprestimoEncontrado) strcat(errorMessage, "emprestimos ");
+        if(emprestimoEncontrado && reservaEncontrada) strcat(errorMessage, "e ");
+        if(reservaEncontrada) strcat(errorMessage, "reservas ");
+        printf("$s.\n", errorMessage);
+        return 0;
+    }
+    
+    arvore->raiz = removerNoLivro(arvore->raiz, livro);
+    return 1;
+}
+
 
 int buscarLivroPorCodigo(int codigo, Arvore* arvore) {
     if (codigo < 0) {

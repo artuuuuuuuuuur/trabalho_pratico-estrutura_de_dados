@@ -17,7 +17,7 @@ Arvore * criarArvore ();
 
 NoArvore* inserirLivroArvore ( Arvore * arvore , Livro * livro );
 
-NoArvore* removerLivro(NoArvore *raiz, Livro *Livro);
+NoArvore* removerNoLivro(NoArvore *raiz, Livro *Livro);
 
 Livro * buscarLivroArvore ( Arvore * arvore , int codigo );
 

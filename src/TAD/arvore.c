@@ -206,7 +206,7 @@ int calcularAlturaArvore ( Arvore * arvore ){
     return no->altura;
 };
 
-NoArvore* removerLivro(NoArvore *raiz, Livro *livro) {
+NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
     if(raiz == NULL) {
         printf("Erro: arvore vazia.\n");
         return raiz;
@@ -214,9 +214,9 @@ NoArvore* removerLivro(NoArvore *raiz, Livro *livro) {
     
     // Busca, recursivamente, o nó pelo código do livro
     if(livro->codigo < raiz->livro->codigo) {
-        raiz->esquerda = removerLivro(raiz->esquerda, livro);
+        raiz->esquerda = removerNoLivro(raiz->esquerda, livro);
     } else if (livro->codigo > raiz->livro->codigo) {
-        raiz->direita = removerLivro(raiz->direita, livro);
+        raiz->direita = removerNoLivro(raiz->direita, livro);
     } else {
         // Encontrou o nó
         
@@ -233,7 +233,7 @@ NoArvore* removerLivro(NoArvore *raiz, Livro *livro) {
         } else { // Caso o nó possua 2 filhos
             NoArvore *temp = menorValorNo(raiz->direita); // Procura sucessor em ordem
             raiz->livro = temp->livro; // Substitui os ponteiros
-            raiz->direita = removerLivro(raiz->direita, temp->livro); // Remove o sucessor copiado
+            raiz->direita = removerNoLivro(raiz->direita, temp->livro); // Remove o sucessor copiado
         }
     }
     
