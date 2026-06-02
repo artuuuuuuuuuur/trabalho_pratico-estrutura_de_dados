@@ -5,7 +5,9 @@
 #include "TAD/arvore.h"
 
 void salvarLivro(Livro *livro);
-
 void carregarLivros(Arvore *arvore);
+
+void salvarEmprestimo(Emprestimo emprestimo);
+void carregarEmprestimos(Lista *lista);
 
 #endif

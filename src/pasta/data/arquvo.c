@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "TAD/livro.h"
 #include "TAD/arvore.h"
+#include "TAD/listaEncadeada.h"
 
 void salvarLivro(Livro *livro)
 {
@@ -65,6 +66,56 @@ void carregarLivros(Arvore *arvore)
         );
 
         inserirLivroArvore(arvore, livro);
+    }
+
+    fclose(arquivo);
+}
+
+void salvarEmprestimo(Emprestimo emprestimo)
+{
+    FILE *arquivo = fopen("arquivo/emprestimos.csv", "a");
+
+    if (arquivo == NULL)
+    {
+        printf("Erro ao abrir emprestimos.csv\n");
+        return;
+    }
+
+    fprintf(
+        arquivo,
+        "%s,%d,%s\n",
+        emprestimo.nomeUsuario,
+        emprestimo.codigoLivro,
+        emprestimo.tituloLivro
+    );
+    }
+    fclose(arquivo);
+
+
+
+void carregarEmprestimos(Lista *lista)
+{
+    FILE *arquivo = fopen("arquivo/emprestimos.csv", "r");
+
+    if (arquivo == NULL)
+    {
+        printf("emprestimos.csv nao encontrado.\n");
+        return;
+    }
+
+    Emprestimo emprestimo;
+
+    while (
+        fscanf(
+            arquivo,
+            "%99[^,],%d,%99[^\n]\n",
+            emprestimo.nomeUsuario,
+            &emprestimo.codigoLivro,
+            emprestimo.tituloLivro
+        ) == 3
+    )
+    {
+        inserirEmprestimo(lista, emprestimo);
     }
 
     fclose(arquivo);
