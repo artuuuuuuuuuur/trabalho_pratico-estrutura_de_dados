@@ -205,3 +205,11 @@ int calcularAlturaArvore ( Arvore * arvore ){
 
     return no->altura;
 };
+
+NoArvore* menorValorNo(NoArvore* no) {
+    NoArvore* atual = no;
+    while (atual->esquerda != NULL) {
+        atual = atual->esquerda;
+    }
+    return atual;
+}
