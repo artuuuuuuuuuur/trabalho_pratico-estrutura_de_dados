@@ -205,3 +205,68 @@ int calcularAlturaArvore ( Arvore * arvore ){
 
     return no->altura;
 };
+
+NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
+    if(raiz == NULL) {
+        printf("Erro: arvore vazia.\n");
+        return raiz;
+    }
+    
+    // Busca, recursivamente, o nó pelo código do livro
+    if(livro->codigo < raiz->livro->codigo) {
+        raiz->esquerda = removerNoLivro(raiz->esquerda, livro);
+    } else if (livro->codigo > raiz->livro->codigo) {
+        raiz->direita = removerNoLivro(raiz->direita, livro);
+    } else {
+        // Encontrou o nó
+        
+        if ((raiz->esquerda == NULL) || (raiz->direita == NULL)) {  // Caso o nó possua 0 ou 1 filho
+            NoArvore *temp = raiz->esquerda ? raiz->esquerda : raiz->direita;
+            if(temp == NULL) { // Sem filhos
+                temp = raiz;
+                raiz = NULL;
+            } else { // 1 filho
+                *raiz = *temp; // Nó filho passa a ser a raiz atual
+            }
+            free(temp);
+            free(temp->livro);
+        } else { // Caso o nó possua 2 filhos
+            NoArvore *temp = menorValorNo(raiz->direita); // Procura sucessor em ordem
+            raiz->livro = temp->livro; // Substitui os ponteiros
+            raiz->direita = removerNoLivro(raiz->direita, temp->livro); // Remove o sucessor copiado
+        }
+    }
+    
+    if(raiz == NULL) return raiz;
+    raiz->altura = 1 + maior(raiz->esquerda->altura, raiz->direita->altura);
+    int fb = fatorBalanceamento(raiz);
+    
+    // Rebalanceamento
+    // - Caso Esquerda-Esquerda (LL)
+    if(fb > 1 && fatorBalanceamento(raiz->esquerda) >= 0) {
+        return rotacaoDireita(raiz);
+    }
+    // - Caso Esquerda-Direita (LR)
+    if(fb > 1 && fatorBalanceamento(raiz->esquerda) < 0) {
+        raiz->esquerda = rotacaoEsquerda(raiz->esquerda);
+        return rotacaoDireita(raiz);
+    }
+    // - Caso Direita-Direita (RR)
+    if(fb < -1 && fatorBalanceamento(raiz->direita) <= 0) {
+        return rotacaoEsquerda(raiz);
+    }
+    // - Caso Direita-Esquerda (RL)
+    if(fb < -1 && fatorBalanceamento(raiz->direita) > 0) {
+        raiz->direita = rotacaoDireita(raiz->direita);
+        return rotacaoEsquerda(raiz);
+    }
+    return raiz;
+}
+
+NoArvore* menorValorNo(NoArvore* no) {
+    NoArvore* atual = no;
+    while (atual->esquerda != NULL) {
+        atual = atual->esquerda;
+    }
+    return atual;
+}
