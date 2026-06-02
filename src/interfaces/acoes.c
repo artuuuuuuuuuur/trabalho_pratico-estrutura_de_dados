@@ -1,4 +1,4 @@
-#include<acoes.h>
+#include "acoes.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -16,16 +16,16 @@ int cadastrarNovoLivro(Livro* livro, Arvore* arvore) {
     return 1;
 }
 
-int buscarLivroPorCodigo(Livro* livro, Arvore* arvore) {
-    if (livro == NULL) {
-        printf("Erro: o livro não existe.\n");
+int buscarLivroPorCodigo(int codigo, Arvore* arvore) {
+    if (codigo < 0) {
+        printf("Erro: o código não é válido.\n");
         return 0;
     }
     if (arvore == NULL) {
         printf("Erro: a árvore não existe.\n");
         return 0;    
     }
-    Livro* livroEncontrado = buscarLivroArvore(arvore, livro);
+    Livro* livroEncontrado = buscarLivroArvore(arvore, codigo);
     if(livroEncontrado == NULL) {
         printf("Livro não encontrado.\n");
         return 0;
@@ -64,7 +64,7 @@ int listarLivrosPos(Arvore* arvore) {
     return 1;
 }
 
-int emprestimoLivro(const Livro * livro, Lista* listaDeEmprestimos, const char * nomeUsuario) {
+int emprestimoLivro(Livro * livro, Lista* listaDeEmprestimos, char * nomeUsuario) {
     if(livro == NULL) {
         printf("Erro: o livro não existe.\n");
         return 0;
@@ -79,7 +79,7 @@ int emprestimoLivro(const Livro * livro, Lista* listaDeEmprestimos, const char *
     return 1;
 }
 
-int devolverLivro(const Livro* livro, Lista* listaDeEmprestimos, const char* nomeUsuario) {
+int devolverLivro(Livro* livro, Lista* listaDeEmprestimos, char* nomeUsuario) {
     if (livro == NULL) {
         printf("Erro: o livro não existe.\n");
         return 0;
