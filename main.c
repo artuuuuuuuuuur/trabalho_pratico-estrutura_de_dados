@@ -25,7 +25,6 @@ int main(void) {
             case 2:
                 printf("Buscar Livro\n");
                 break; 
-            case 3:
                 printf("Listar livros em ordem crescente de codigo\n");
                 break;
             case 4:

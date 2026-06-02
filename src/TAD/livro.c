@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include "livro.h" 
 
 //Criação do livro 
@@ -25,6 +24,7 @@ Livro* criarLivro(
         livro->quantidadeDisponivel = quantidadeTotal; 
     }
 
+
     return livro;
 }
 
@@ -39,6 +39,7 @@ void exibirLivro(Livro *livro)
         printf("Quantidade Total: %d\n", livro->quantidadeTotal);
         printf("Quantidade Disponivel: %d\n", livro->quantidadeDisponivel);
     }
+    
 }
 
 int obterCodigoLivro(Livro *livro)
@@ -66,6 +67,7 @@ void emprestarExemplar(Livro *livro)
     if (livro != NULL && livro->quantidadeDisponivel > 0)
     {
         livro->quantidadeDisponivel--;
+    
     }
 }
 
