@@ -17,6 +17,8 @@ Arvore * criarArvore ();
 
 NoArvore* inserirLivroArvore ( Arvore * arvore , Livro * livro );
 
+NoArvore* removerNoLivro(NoArvore *raiz, Livro *Livro);
+
 Livro * buscarLivroArvore ( Arvore * arvore , int codigo );
 
 void listarLivrosEmOrdem ( Arvore * arvore );
@@ -36,6 +38,8 @@ NoArvore* criarNo(Livro *livro);
 int fatorBalanceamento(NoArvore *n);
 
 int maior(int a, int b);
+
+NoArvore *menorValorNo(NoArvore *no);
 
 NoArvore* rotacaoDireita(NoArvore *y);
 
