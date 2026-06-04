@@ -38,9 +38,12 @@ int main(void) {
                 while (status == -1 || status == 0) status = buscarLivroPorCodigo(arvore);
                 break; 
             }
-            case 3:
-                printf("Listar livros em ordem crescente de codigo\n");
+            case 3: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = listarLivrosCrescente(arvore);
                 break;
+            }
             case 4:
                 printf("Listar livros em pre - ordem\n");
                 break;

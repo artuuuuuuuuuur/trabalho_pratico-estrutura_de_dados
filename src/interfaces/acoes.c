@@ -17,14 +17,14 @@ int cadastrarNovoLivro(Arvore* arvore) {
     printf("=== Cadastrar Livro ===\n");
     getString("  Título (max 99 char): ", tituloLivro);
     getString("  Autor (max 99 char): ", autorLivro);
-    printf("Ano: ");
+    printf("  Ano: ");
     if (scanf("%d", &anoLivro) != 1) {
         printf("Erro: entrada inválida para o ano.\n");
         limparBuffer();
         return 0;
     }
 
-    printf("Quantidade total: ");
+    printf("  Quantidade total: ");
     if (scanf("%d", &quantidadeTotalLivro) != 1) {
         printf("Erro: entrada inválida para a quantidade.\n");
         limparBuffer();
@@ -127,11 +127,14 @@ int buscarLivroPorCodigo(Arvore* arvore) {
 
 int listarLivrosCrescente(Arvore* arvore) {
     if(arvore->raiz == NULL) {
-        printf("Erro: árvore está vazia.\n");
-        return 0;
+        printf("A árvore está vazia.\n");
+    } else {
+        printf("==== Lista de livros em ordem ====\n");
+        listarLivrosEmOrdem(arvore);
+        printf("=====================================\n");
     }
-
-    listarLivrosEmOrdem(arvore);
+    printf("Pressione 'ENTER' para prosseguir");
+    getchar();
     return 1;
 }
 

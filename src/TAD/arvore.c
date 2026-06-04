@@ -154,7 +154,7 @@ void listarLivrosEmOrdem ( Arvore * arvore ){
         Arvore subArvore;
         subArvore.raiz = no->esquerda;
         listarLivrosEmOrdem(&subArvore);
-        printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
+        printf("- Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
         subArvore.raiz = no->direita;
         listarLivrosEmOrdem(&subArvore);
     }
