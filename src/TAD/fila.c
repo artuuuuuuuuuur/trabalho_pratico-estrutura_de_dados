@@ -53,12 +53,12 @@ int filaVazia( Fila * fila ){
 
 void exibirReservas( Fila * fila ){
     if(filaVazia(fila)){
-        printf("Fila vazia. NNao ha reservas para exibir.\n");
+        printf("Fila vazia. Nao ha reservas para exibir.\n");
         return;
     }
     NoFila* temp = fila->inicio;
     while (temp != NULL){
-        printf("Usuario: %s\nCodigo do Livro: %d\n\n", temp->reserva.nomeUsuario, temp->reserva.codigoLivro);
+        printf("- Usuario: %s, Codigo do Livro: %d\n", temp->reserva.nomeUsuario, temp->reserva.codigoLivro);
         temp = temp->prox;
     }
 };

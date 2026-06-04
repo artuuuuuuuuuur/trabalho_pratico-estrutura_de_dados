@@ -4,8 +4,10 @@
 #include "src/utils/utils.h"
 
 int main(void) {
-    Arvore *arvore = (Arvore *)malloc(sizeof(Arvore)); // Inicializando Árvore
-    arvore->raiz = NULL;
+    // Inicializando TADs
+    Arvore *arvore = criarArvore();
+    Fila *fila = criarFila();
+    Lista *lista = criarLista();
 
     int opcao;
     do {
@@ -62,18 +64,30 @@ int main(void) {
             case 7:
                 printf("Devolver livro\n");
                 break;
-            case 8:
-                printf("Exibir fila de reservas\n");
+            case 8: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = imprimirReservas(fila);
                 break;
-            case 9:
-                printf("Exibir historico de emprestimos\n");
+            }
+            case 9: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = imprimirEmprestimos(lista);
                 break;
-            case 10:
-                printf("Exibir quantidade de livros cadastrados\n");
+            }
+            case 10: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = exibirQuantidadeLivros(arvore);
                 break;
-            case 11:
-                printf("Exibir altura da arvore\n");
+            }
+            case 11: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = exibirAlturaArvore(arvore);
                 break;
+            }
             case 0:
                 printf("Saindo do programa...\n");
                 break;

@@ -94,7 +94,6 @@ int removerLivro(Livro *livro, Arvore *arvore, Lista* emprestimos, Fila* reserva
     return 1;
 }
 
-
 int buscarLivroPorCodigo(Arvore* arvore) {
     if (arvore == NULL) {
         printf("Erro: a árvore não existe.\n");
@@ -195,24 +194,44 @@ int devolverLivro(Livro* livro, Lista* listaDeEmprestimos, char* nomeUsuario) {
     printf("Não foi possível devolver o livro.\n");
 }
 
-void imprimirReservas(Fila* filaDeReservas) {
-    exibirReservas(filaDeReservas);
+int imprimirEmprestimos(Lista* listaDeEmprestimos) {
+    if(listaDeEmprestimos->inicio == NULL) {
+        printf("A lista de empréstimos está vazia.");
+    } else {
+        printf("==== Lista de empréstimos ====\n");
+        listarEmprestimos(listaDeEmprestimos);
+        printf("====================================== \n");
+    }
+    return 1;
+}
+
+int imprimirReservas(Fila* filaDeReservas) {
+    if(filaDeReservas->inicio == NULL) {
+        printf("A fila de reservas está vazia.\n");
+    } else {
+        printf("==== Lista de reservas ====\n");
+        exibirReservas(filaDeReservas);
+        printf("==============================\n");
+    }
+    return 1;
 }
 
 int exibirQuantidadeLivros(Arvore* arvore) {
     if(arvore->raiz == NULL) {
         printf("A árvore está vazia.\n");
-        return 0;
+    } else {
+        int qtLivros = contarLivros(arvore);
+        printf("Livros cadastrados: %d\n", qtLivros);
     }
-    int qtLivros = contarLivros(arvore);
-    return qtLivros;
+    return 1;
 }
 
 int exibirAlturaArvore(Arvore* arvore) {
     if(arvore->raiz == NULL) {
         printf("A árvore está vazia.\n");
-        return 0;
+    } else {
+        int alturaArvore = calcularAlturaArvore(arvore);
+        printf("Altura da árvore: %d\n", alturaArvore);
     }
-    int alturaArvore = calcularAlturaArvore(arvore);
-    return alturaArvore;
+    return 1;
 }

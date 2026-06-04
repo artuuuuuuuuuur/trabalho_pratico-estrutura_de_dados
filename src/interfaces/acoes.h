@@ -14,7 +14,8 @@ int listarLivrosPre(Arvore* arvore);
 int listarLivrosPos(Arvore* arvore);
 int emprestimoLivro(Livro * livro, Lista* listaDeEmprestimos, char * nomeUsuario);
 int devolverLivro(Livro* livro, Lista* listaDeEmprestimos, char* nomeUsuario);
-void imprimirReservas(Fila* filaDeReservas);
+int imprimirReservas(Fila* filaDeReservas);
+int imprimirEmprestimos(Lista* listaDeEmprestimos);
 int exibirQuantidadeLivros(Arvore* arvore);
 int exibirAlturaArvore(Arvore* arvore);
 
