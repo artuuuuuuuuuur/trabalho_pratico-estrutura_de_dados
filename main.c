@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "src/interfaces/acoes.h"
+#include "src/utils/utils.h"
 
 int main(void) {
     Arvore *arvore = (Arvore *)malloc(sizeof(Arvore)); // Inicializando Árvore
@@ -8,6 +9,7 @@ int main(void) {
 
     int opcao;
     do {
+        system("cls");
         printf("========== Menu Principal ==========\n");
         printf("1 - Cadastrar Novo Livro\n");
         printf("2 - Buscar Livro\n");
@@ -22,14 +24,20 @@ int main(void) {
         printf("11 - Exibir altura da arvore\n");
         printf("0 - Sair\n");
         scanf("%d", &opcao);
+        limparBuffer();
         switch (opcao) {
-            case 1:
-                int status;
-                while (!status || status == 0) status = cadastrarNovoLivro(arvore);
+            case 1: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = cadastrarNovoLivro(arvore);
                 break;
-            case 2:
-                printf("Buscar Livro\n");
+            }
+            case 2: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = buscarLivroPorCodigo(arvore);
                 break; 
+            }
             case 3:
                 printf("Listar livros em ordem crescente de codigo\n");
                 break;
