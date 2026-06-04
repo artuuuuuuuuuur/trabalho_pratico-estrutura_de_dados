@@ -1,8 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "src/interfaces/acoes.h"
 
 int main(void) {
+    Arvore *arvore = (Arvore *)malloc(sizeof(Arvore)); // Inicializando Árvore
+    arvore->raiz = NULL;
+
     int opcao;
-    do{
+    do {
         printf("========== Menu Principal ==========\n");
         printf("1 - Cadastrar Novo Livro\n");
         printf("2 - Buscar Livro\n");
@@ -17,10 +22,10 @@ int main(void) {
         printf("11 - Exibir altura da arvore\n");
         printf("0 - Sair\n");
         scanf("%d", &opcao);
-        switch (opcao)
-        {
+        switch (opcao) {
             case 1:
-                printf("Cadastrar Novo Livro\n");
+                int status;
+                while (!status || status == 0) status = cadastrarNovoLivro(arvore);
                 break;
             case 2:
                 printf("Buscar Livro\n");

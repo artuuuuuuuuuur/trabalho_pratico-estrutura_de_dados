@@ -6,7 +6,7 @@
 #ifndef ACOES_H
 #define ACOES_H
 
-int cadastrarNovoLivro(Livro* livro, Arvore* arvore) {}
+int cadastrarNovoLivro(Arvore* arvore) {}
 int buscarLivroPorCodigo(Livro* livro, Arvore* arvore) {}
 int listarLivrosCrescente(Arvore* arvore) {}
 int listarLivrosPre(Arvore* arvore) {}

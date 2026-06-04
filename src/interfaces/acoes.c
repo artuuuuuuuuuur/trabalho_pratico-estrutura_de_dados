@@ -3,16 +3,30 @@
 #include<stdlib.h>
 #include<string.h>
 
-int cadastrarNovoLivro(Livro* livro, Arvore* arvore) {
-    if (livro == NULL) {
-        printf("Erro: o livro não existe.\n");
-        return 0;
-    }
+int cadastrarNovoLivro(Arvore* arvore) {
     if (arvore == NULL) {
         printf("Erro: a árvore não existe.\n");
         return 0;    
     }
-    inserirLivroArvore(arvore, livro);
+
+    char tituloLivro[100], autorLivro[100];
+    int anoLivro, quantidadeTotalLivro;
+    printf("=== Cadastrar Árvore ===\n  Título (max 100 char): ");
+    scanf("%s", tituloLivro);
+    printf("\nAutor (max 100 char): ");
+    scanf("%s", autorLivro);
+    printf("\nAno: ");
+    scanf("%d", anoLivro);
+    printf("\nQuantidade total: ");
+    scanf("%d", quantidadeTotalLivro);
+    
+    if(!tituloLivro || !autorLivro || !anoLivro || !quantidadeTotalLivro) {
+        printf("Erro: preencha todos os espaços corretamente.\n");
+        return 0;
+    }
+
+    Livro *novoLivro = criarLivro(contarLivros(arvore) + 1, tituloLivro, autorLivro, anoLivro, quantidadeTotalLivro);
+    if(novoLivro) inserirLivroArvore(arvore, novoLivro);
     return 1;
 }
 
