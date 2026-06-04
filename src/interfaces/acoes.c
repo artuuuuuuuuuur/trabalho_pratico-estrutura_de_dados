@@ -99,3 +99,25 @@ int devolverLivro(const Livro* livro, Lista* listaDeEmprestimos, const char* nom
     }
     printf("Não foi possível devolver o livro.\n");
 }
+
+void exibirReservas(Fila* filaDeReservas) {
+    exibirReservas(filaDeReservas);
+}
+
+int exibirQuantidadeLivros(Arvore* arvore) {
+    if(arvore->raiz == NULL) {
+        printf("A árvore está vazia.\n");
+        return 0;
+    }
+    int qtLivros = contarLivros(arvore);
+    return qtLivros;
+}
+
+int exibirAlturaArvore(Arvore* arvore) {
+    if(arvore->raiz == NULL) {
+        printf("A árvore está vazia.\n");
+        return 0;
+    }
+    int alturaArvore = calcularAlturaArvore(arvore);
+    return alturaArvore;
+}
