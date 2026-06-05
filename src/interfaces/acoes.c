@@ -158,35 +158,125 @@ int listarLivrosPos(Arvore* arvore) {
     return 1;
 }
 
-int emprestimoLivro(Livro * livro, Lista* listaDeEmprestimos, char * nomeUsuario) {
-    if(livro == NULL) {
-        printf("Erro: o livro não existe.\n");
+int emprestimoLivro(Arvore *arvore, Lista* listaDeEmprestimos, Fila* filaDeReservas) {
+    printf("======= Emprétimo de Livros =======\n");
+    if(arvore->raiz == NULL) {
+        printf("Erro: nenhum livro cadastrado.\n");
+        return 1;
+    }
+    int codigoLivro;
+    char nomeUsuario[100];
+    printf("  Código: ");
+    if (scanf("%d", &codigoLivro) != 1) {
+        printf("Erro: entrada inválida para o código.\n");
+        limparBuffer();
+        getchar();
         return 0;
     }
-    Emprestimo novo_emprestimo;
-    novo_emprestimo.codigoLivro = livro->codigo;
-    strcpy(novo_emprestimo.tituloLivro, livro->titulo);
-    strcpy(novo_emprestimo.nomeUsuario, nomeUsuario);
-    inserirEmprestimo(listaDeEmprestimos, novo_emprestimo);
-    // Emprestar apenas se a inserção na lista ocorrer
-    emprestarExemplar(livro);
+    Livro *livroEncontrado = buscarLivroArvore(arvore, codigoLivro);
+    if(livroEncontrado == NULL) {
+        printf("Erro: O livro não existe.\n");
+        return 1;
+    }
+    getchar();
+    getString("  Nome do Usuário: ", nomeUsuario);
+    if(livroEncontrado->quantidadeDisponivel > 0) { // Empresta apenas se tiver livros
+        Emprestimo novo_emprestimo;
+        novo_emprestimo.codigoLivro = livroEncontrado->codigo;
+        strcpy(novo_emprestimo.tituloLivro, livroEncontrado->titulo);
+        strcpy(novo_emprestimo.nomeUsuario, nomeUsuario);
+        inserirEmprestimo(listaDeEmprestimos, novo_emprestimo);
+        emprestarExemplar(livroEncontrado);
+        printf("Empréstimo feito com sucesso!\n");
+    } else { // Se todos os livros já foram emprestados
+        char res;
+        int entradaValida = 0;
+        while (entradaValida == 0) {
+            printf("Sem mais exemplares disponíveis!\nDeseja adicionar o usuário à fila de reservas? (S / N): ");
+            if (scanf(" %c", &res) != 1) { 
+            limparBuffer();
+            printf("Entrada inválida. Tente novamente.\n");
+            continue;
+        }
+        limparBuffer();
+
+            switch (res) {
+                case 'S': 
+                case 's': {
+                    Reserva nova_reserva;
+                    nova_reserva.codigoLivro = codigoLivro;
+                    strcpy(nova_reserva.nomeUsuario,nomeUsuario);
+                    enfileirarReserva(filaDeReservas, nova_reserva);
+                    printf("Adicionado à fila de reservas!\n");
+                    entradaValida = 1;
+                    break;
+                }
+                case 'N': 
+                case 'n': {
+                    printf("O usuário não foi adicionado à fila de reservas.\n");
+                    entradaValida = 1;
+                    break;
+                }    
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+                break;
+            }
+        }
+        
+    }
     return 1;
 }
 
-int devolverLivro(Livro* livro, Lista* listaDeEmprestimos, char* nomeUsuario) {
-    if (livro == NULL) {
-        printf("Erro: o livro não existe.\n");
+int devolverLivro(Arvore* arvore, Lista* listaDeEmprestimos, Fila* filaDeReservas) {
+    printf("======= Devolução de Livros =======\n");
+    if(arvore->raiz == NULL) {
+        printf("Erro: nenhum livro cadastrado.\n");
+        return 1;
+    }
+    int codigoLivro;
+    char nomeUsuario[100];
+    printf("  Código: ");
+    if (scanf("%d", &codigoLivro) != 1) {
+        printf("Erro: entrada inválida para o código.\n");
+        limparBuffer();
+        getchar();
         return 0;
     }
+    Livro *livroEncontrado = buscarLivroArvore(arvore, codigoLivro);
+    if(livroEncontrado == NULL) {
+        printf("Erro: O livro não existe.\n");
+        return 1;
+    }
+    getchar();
+    getString("  Nome do Usuário: ", nomeUsuario);
+    
     Emprestimo emprestimoEncontrado;
     NoLista *no = listaDeEmprestimos->inicio;
-    while(no != NULL) {
-        if(no->emprestimo.codigoLivro == livro->codigo &&
+    while(no != NULL) { // Pesquisa o emprestimo na lista
+        if(no->emprestimo.codigoLivro == livroEncontrado->codigo &&
             strcmp(no->emprestimo.nomeUsuario, nomeUsuario) == 0) {
+            // Emprestimo encontrado
             emprestimoEncontrado = no->emprestimo;
-            deletarEmprestimo(listaDeEmprestimos, emprestimoEncontrado);
-            // Devolver apenas se a deleção na lista ocorrer
-            devolverExemplar(livro);
+            deletarEmprestimo(listaDeEmprestimos, emprestimoEncontrado); // Deleta o emprestimo da lista
+            devolverExemplar(livroEncontrado);
+            // if(filaDeReservas->inicio != NULL) {
+            //     NoFila *curr = filaDeReservas->inicio;
+            //     // Procura reservas na fila para adicionar aos emprestimos
+            //     while (curr != NULL) {
+            //         if(curr->reserva.codigoLivro == codigoLivro && 
+            //         strcmp(curr->reserva.nomeUsuario, nomeUsuario) == 0) {
+            //             Emprestimo novoEmprestimo;
+            //             novoEmprestimo.codigoLivro = codigoLivro;
+            //             strcpy(novoEmprestimo.nomeUsuario, nomeUsuario);
+            //             strcpy(novoEmprestimo.tituloLivro, livroEncontrado->titulo);
+            //             inserirEmprestimo(listaDeEmprestimos, novoEmprestimo);
+            //             emprestarExemplar(livroEncontrado);
+            //             desenfileirarReserva(curr);
+            //             free(curr);
+            //         }
+            //         curr = curr->prox;
+            //     }
+            //}
             return 1;
         }
         no = no->prox;
@@ -196,7 +286,7 @@ int devolverLivro(Livro* livro, Lista* listaDeEmprestimos, char* nomeUsuario) {
 
 int imprimirEmprestimos(Lista* listaDeEmprestimos) {
     if(listaDeEmprestimos->inicio == NULL) {
-        printf("A lista de empréstimos está vazia.");
+        printf("A lista de empréstimos está vazia.\n");
     } else {
         printf("==== Lista de empréstimos ====\n");
         listarEmprestimos(listaDeEmprestimos);

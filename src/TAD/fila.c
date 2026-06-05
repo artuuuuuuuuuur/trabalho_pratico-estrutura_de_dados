@@ -32,7 +32,7 @@ void enfileirarReserva( Fila * fila , Reserva reserva ){
 
 Reserva desenfileirarReserva( Fila * fila ){
     if(filaVazia(fila)){
-        printf("Fila vazia. NNao ha reservas para desenfilerar.\n");
+        printf("Fila vazia. Nao ha reservas para desenfilerar.\n");
         Reserva vazia;
         strcpy(vazia.nomeUsuario, "");
         vazia.codigoLivro = -1;

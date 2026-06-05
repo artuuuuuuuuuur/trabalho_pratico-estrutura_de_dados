@@ -58,12 +58,18 @@ int main(void) {
                 while (status == -1 || status == 0) status = listarLivrosPos(arvore);
                 break;
             }
-            case 6:
-                printf("Realizar emprestimo de livro\n");
+            case 6: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = emprestimoLivro(arvore, lista, fila);
                 break;
-            case 7:
-                printf("Devolver livro\n");
+            }
+            case 7: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = devolverLivro(arvore, lista, fila);
                 break;
+            }
             case 8: {
                 system("cls");
                 int status = -1;
@@ -88,12 +94,14 @@ int main(void) {
                 while (status == -1 || status == 0) status = exibirAlturaArvore(arvore);
                 break;
             }
-            case 0:
+            case 0: {
                 printf("Saindo do programa...\n");
                 break;
-            default:
+            }
+            default: {
                 printf("Opcao invalida. Tente novamente.\n");
                 break;
+            }
         }
         printf("Pressione 'ENTER' para prosseguir");
         getchar();
