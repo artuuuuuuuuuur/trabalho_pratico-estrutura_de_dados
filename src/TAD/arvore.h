@@ -1,8 +1,10 @@
 #include "livro.h"
+#include "fila.h"
 
 typedef struct NoArvore {
     Livro * livro;
     int altura;
+    Fila* filaEspera;
     struct NoArvore *esquerda;
     struct NoArvore *direita;
 } NoArvore;
@@ -48,3 +50,5 @@ NoArvore* rotacaoEsquerda(NoArvore *x);
 NoArvore* inserirAVL(NoArvore *raiz, Livro *livro);
 
 void liberarArvore(NoArvore *no);
+
+NoArvore * buscarNoLivroArvore ( Arvore * arvore , int codigo );

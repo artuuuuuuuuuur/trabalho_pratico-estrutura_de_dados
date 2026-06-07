@@ -6,7 +6,6 @@
 int main(void) {
     // Inicializando TADs
     Arvore *arvore = criarArvore();
-    Fila *fila = criarFila();
     Lista *lista = criarLista();
 
     int opcao;
@@ -61,19 +60,19 @@ int main(void) {
             case 6: {
                 system("cls");
                 int status = -1;
-                while (status == -1 || status == 0) status = emprestimoLivro(arvore, lista, fila);
+                while (status == -1 || status == 0) status = emprestimoLivro(arvore, lista);
                 break;
             }
             case 7: {
                 system("cls");
                 int status = -1;
-                while (status == -1 || status == 0) status = devolverLivro(arvore, lista, fila);
+                while (status == -1 || status == 0) status = devolverLivro(arvore, lista);
                 break;
             }
             case 8: {
                 system("cls");
                 int status = -1;
-                while (status == -1 || status == 0) status = imprimirReservas(fila);
+                while (status == -1 || status == 0) status = imprimirReservas(arvore);
                 break;
             }
             case 9: {
