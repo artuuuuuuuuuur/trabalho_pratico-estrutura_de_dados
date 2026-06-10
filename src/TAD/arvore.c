@@ -14,6 +14,7 @@ NoArvore* criarNo(Livro *livro) {
 
     novo->livro = livro;
     novo->altura = 0;
+    novo->filaEspera = criarFila();
     novo->esquerda = NULL;
     novo->direita = NULL;
 
@@ -148,13 +149,27 @@ Livro * buscarLivroArvore ( Arvore * arvore , int codigo ){
     return NULL;
 };
 
+NoArvore * buscarNoLivroArvore ( Arvore * arvore , int codigo ){
+    NoArvore* atual = arvore -> raiz;
+    while (atual != NULL){
+        if (codigo == atual -> livro -> codigo){
+            return atual;
+        }else if (codigo < atual -> livro -> codigo){
+            atual = atual -> esquerda;
+        }else{
+            atual = atual -> direita;
+        }
+    }
+    return NULL;
+};
+
 void listarLivrosEmOrdem ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
     if (no != NULL){
         Arvore subArvore;
         subArvore.raiz = no->esquerda;
         listarLivrosEmOrdem(&subArvore);
-        printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
+        printf("- Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
         subArvore.raiz = no->direita;
         listarLivrosEmOrdem(&subArvore);
     }
