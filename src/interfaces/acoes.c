@@ -8,18 +8,18 @@
 int cadastrarNovoLivro(Arvore* arvore) {
     system("cls");
     if (arvore == NULL) {
-        printf("Erro: a arvore nao existe.\n");
+        printf("Erro: a árvore não existe.\n");
         return 0;    
     }
 
     char tituloLivro[100], autorLivro[100];
     int anoLivro, quantidadeTotalLivro;
     printf("=== Cadastrar Livro ===\n");
-    getString("  Titulo (max 99 char): ", tituloLivro);
+    getString("  Título (max 99 char): ", tituloLivro);
     getString("  Autor (max 99 char): ", autorLivro);
     printf("  Ano: ");
     if (scanf("%d", &anoLivro) != 1) {
-        printf("Erro: entrada invalida para o ano.\n");
+        printf("Erro: entrada inválida para o ano.\n");
         limparBuffer();
         getchar();
         return 0;
@@ -27,7 +27,7 @@ int cadastrarNovoLivro(Arvore* arvore) {
 
     printf("  Quantidade total: ");
     if (scanf("%d", &quantidadeTotalLivro) != 1) {
-        printf("Erro: entrada invalida para a quantidade.\n");
+        printf("Erro: entrada inválida para a quantidade.\n");
         limparBuffer();
         getchar();
         return 0;
@@ -54,14 +54,14 @@ int cadastrarNovoLivro(Arvore* arvore) {
 int removerLivro(Arvore *arvore, Lista* emprestimos) {
     printf("======= Remover Livros =======\n");
     if (arvore == NULL) {
-        printf("Erro: a arvore nao existe.\n");
+        printf("Erro: a árvore não existe.\n");
         return 1;
     }
     
     int codigoLivro = -1;
     printf("  Código: ");
     if (scanf("%d", &codigoLivro) != 1) {
-        printf("Erro: entrada invalida para o código.\n");
+        printf("Erro: entrada inválida para o código.\n");
         limparBuffer();
         return 1;
     }
@@ -69,7 +69,7 @@ int removerLivro(Arvore *arvore, Lista* emprestimos) {
 
     NoArvore* noArvore = buscarNoLivroArvore(arvore, codigoLivro);
     if (noArvore == NULL) {
-        printf("Erro: o livro nao existe.\n");
+        printf("Erro: o livro não existe.\n");
         return 1;
     }
     Livro *livro = noArvore->livro;
@@ -89,9 +89,9 @@ int removerLivro(Arvore *arvore, Lista* emprestimos) {
     if(reservas != NULL && reservas->inicio != NULL) reservaEncontrada = true; // Livro reservado
     
     if(emprestimoEncontrado || reservaEncontrada) {
-        printf("Erro: Você precisa quitar todas as pendencias do livro.\n");
-        char errorMessage[100] = "Ha pendencias de ";
-        if(emprestimoEncontrado) strcat(errorMessage, "emprestimos");
+        printf("Erro: Você precisa quitar todas as pendências do livro.\n");
+        char errorMessage[100] = "Há pendências de ";
+        if(emprestimoEncontrado) strcat(errorMessage, "empréstimos");
         if(emprestimoEncontrado && reservaEncontrada) strcat(errorMessage, " e ");
         if(reservaEncontrada) strcat(errorMessage, "reservas");
         printf("%s.\n", errorMessage);
@@ -105,27 +105,27 @@ int removerLivro(Arvore *arvore, Lista* emprestimos) {
 
 int buscarLivroPorCodigo(Arvore* arvore) {
     if (arvore == NULL) {
-        printf("Erro: a arvore nao existe.\n");
+        printf("Erro: a árvore não existe.\n");
         return 0;    
     }
 
     int codigoLivro = -1;
     printf("=== Buscar livro por codigo ===\nCodigo: ");
     if (scanf("%d", &codigoLivro) != 1) {
-        printf("Erro: entrada invalida. Digite apenas numeros.\n");
-        limparBuffer(); // Limpa o lixo (letras) antes de sair
+        printf("Erro: entrada inválida. Digite apenas numeros.\n");
+        limparBuffer();
         return 0;
     }    
     limparBuffer();
 
     if (codigoLivro < 0) {
-        printf("Erro: o codigo nao é valido.\n");
+        printf("Erro: o código não é valido.\n");
         return 0;
     }
 
     Livro* livroEncontrado = buscarLivroArvore(arvore, codigoLivro);
     if(livroEncontrado == NULL) {
-        printf("Livro nao encontrado.");
+        printf("Livro não encontrado.");
     } else {
         printf("======= Livro encontrado =======\n");
         exibirLivro(livroEncontrado);
@@ -136,9 +136,9 @@ int buscarLivroPorCodigo(Arvore* arvore) {
 
 int listarLivrosCrescente(Arvore* arvore) {
     if(arvore->raiz == NULL) {
-        printf("A arvore esta vazia.\n");
+        printf("A árvore está vazia.\n");
     } else {
-        printf("==== Lista de livros em ordem ====\n");
+        printf("==== Lista de livros em ordem crescente ====\n");
         listarLivrosEmOrdem(arvore);
         printf("=====================================\n");
     }
@@ -147,9 +147,9 @@ int listarLivrosCrescente(Arvore* arvore) {
 
 int listarLivrosPre(Arvore* arvore) {
     if(arvore->raiz == NULL) {
-        printf("Erro: arvore esta vazia.\n");
+        printf("Erro: árvore está vazia.\n");
     } else {    
-        printf("==== Lista de livros em ordem ====\n");
+        printf("==== Lista de livros em pré-ordem ====\n");
         listarLivrosPreOrdem(arvore);
         printf("=====================================\n");
     }
@@ -158,9 +158,9 @@ int listarLivrosPre(Arvore* arvore) {
 
 int listarLivrosPos(Arvore* arvore) {
     if(arvore->raiz == NULL) {
-        printf("Erro: arvore esta vazia.\n");
+        printf("Erro: árvore está vazia.\n");
     } else {
-        printf("==== Lista de livros em ordem ====\n");
+        printf("==== Lista de livros em pós-ordem ====\n");
         listarLivrosPosOrdem(arvore);
         printf("=====================================\n");
     }
@@ -168,7 +168,7 @@ int listarLivrosPos(Arvore* arvore) {
 }
 
 int emprestimoLivro(Arvore *arvore, Lista* listaDeEmprestimos) {
-    printf("======= Emprestimo de Livros =======\n");
+    printf("======= Empréstimo de Livros =======\n");
     if(arvore->raiz == NULL) {
         printf("Erro: nenhum livro cadastrado.\n");
         return 1;
@@ -177,18 +177,18 @@ int emprestimoLivro(Arvore *arvore, Lista* listaDeEmprestimos) {
     char nomeUsuario[100];
     printf("  Codigo: ");
     if (scanf("%d", &codigoLivro) != 1) {
-        printf("Erro: entrada invalida para o codigo.\n");
+        printf("Erro: entrada inválida para o código.\n");
         limparBuffer();
         getchar();
         return 0;
     }
     Livro *livroEncontrado = buscarLivroArvore(arvore, codigoLivro);
     if(livroEncontrado == NULL) {
-        printf("Erro: O livro nao existe.\n");
+        printf("Erro: O livro não existe.\n");
         return 1;
     }
     getchar();
-    getString("  Nome do Usuario: ", nomeUsuario);
+    getString("  Nome do Usuário: ", nomeUsuario);
     if(livroEncontrado->quantidadeDisponivel > 0) { // Empresta apenas se tiver livros
         Emprestimo novo_emprestimo;
         novo_emprestimo.codigoLivro = livroEncontrado->codigo;
@@ -196,21 +196,21 @@ int emprestimoLivro(Arvore *arvore, Lista* listaDeEmprestimos) {
         strcpy(novo_emprestimo.nomeUsuario, nomeUsuario);
         inserirEmprestimo(listaDeEmprestimos, novo_emprestimo);
         emprestarExemplar(livroEncontrado);
-        printf("Emprestimo feito com sucesso!\n");
+        printf("Empréstimo feito com sucesso!\n");
     } else { // Se todos os livros já foram emprestados
         NoArvore *noLivro = buscarNoLivroArvore(arvore, codigoLivro);
         if(noLivro == NULL) {
-            printf("Erro: O livro nao existe.\n");
+            printf("Erro: O livro não existe.\n");
             return 1;
         }
         Fila* filaDeReservas = noLivro->filaEspera;
         char res;
         int entradaValida = 0;
         while (entradaValida == 0) {
-            printf("Sem mais exemplares disponiveis!\nDeseja adicionar o usuario a fila de reservas? (S / N): ");
+            printf("Sem mais exemplares disponíveis!\nDeseja adicionar o usuário à fila de reservas? (S / N): ");
             if (scanf(" %c", &res) != 1) { 
             limparBuffer();
-            printf("Entrada invalida. Tente novamente.\n");
+            printf("Entrada inválida. Tente novamente.\n");
             continue;
         }
         limparBuffer();
@@ -222,18 +222,18 @@ int emprestimoLivro(Arvore *arvore, Lista* listaDeEmprestimos) {
                     nova_reserva.codigoLivro = codigoLivro;
                     strcpy(nova_reserva.nomeUsuario,nomeUsuario);
                     enfileirarReserva(filaDeReservas, nova_reserva);
-                    printf("Adicionado a fila de reservas!\n");
+                    printf("Adicionado à fila de reservas!\n");
                     entradaValida = 1;
                     break;
                 }
                 case 'N': 
                 case 'n': {
-                    printf("O usuario nao foi adicionado a fila de reservas.\n");
+                    printf("O usuário não foi adicionado à fila de reservas.\n");
                     entradaValida = 1;
                     break;
                 }    
             default:
-                printf("Opção invalida. Tente novamente.\n");
+                printf("Opção inválida. Tente novamente.\n");
                 break;
             }
         }
@@ -243,7 +243,7 @@ int emprestimoLivro(Arvore *arvore, Lista* listaDeEmprestimos) {
 }
 
 int devolverLivro(Arvore* arvore, Lista* listaDeEmprestimos) {
-    printf("======= Devoluçao de Livros =======\n");
+    printf("======= Devolução de Livros =======\n");
     if(arvore->raiz == NULL) {
         printf("Erro: nenhum livro cadastrado.\n");
         return 1;
@@ -252,18 +252,18 @@ int devolverLivro(Arvore* arvore, Lista* listaDeEmprestimos) {
     char nomeUsuario[100];
     printf("  Codigo: ");
     if (scanf("%d", &codigoLivro) != 1) {
-        printf("Erro: entrada invalida para o codigo.\n");
+        printf("Erro: entrada inválida para o código.\n");
         limparBuffer();
         getchar();
         return 1;
     }
     Livro *livroEncontrado = buscarLivroArvore(arvore, codigoLivro);
     if(livroEncontrado == NULL) {
-        printf("Erro: O livro nao existe.\n");
+        printf("Erro: O livro não existe.\n");
         return 1;
     }
     getchar();
-    getString("  Nome do Usuario: ", nomeUsuario);
+    getString("  Nome do Usuário: ", nomeUsuario);
 
     NoArvore *noLivro = buscarNoLivroArvore(arvore, codigoLivro);
     Fila* filaDeReservas = noLivro->filaEspera;
@@ -289,15 +289,15 @@ int devolverLivro(Arvore* arvore, Lista* listaDeEmprestimos) {
         }
         no = no->prox;
     }
-    printf("Nao foi possível devolver o livro.\n");
+    printf("Não foi possível devolver o livro.\n");
     return 1;
 }
 
 int imprimirEmprestimos(Lista* listaDeEmprestimos) {
     if(listaDeEmprestimos->inicio == NULL) {
-        printf("A lista de emprestimos esta vazia.\n");
+        printf("A lista de empréstimos está vazia.\n");
     } else {
-        printf("==== Lista de emprestimos ====\n");
+        printf("==== Lista de empréstimos ====\n");
         listarEmprestimos(listaDeEmprestimos);
         printf("====================================== \n");
     }
@@ -313,7 +313,7 @@ int imprimirReservas(Arvore* arvore) {
     int codigoLivro;
     printf("  Código: ");
     if (scanf("%d", &codigoLivro) != 1) {
-        printf("Erro: entrada invalida para o codigo.\n");
+        printf("Erro: entrada inválida para o código.\n");
         limparBuffer();
         getchar();
         return 0;
@@ -321,12 +321,12 @@ int imprimirReservas(Arvore* arvore) {
     limparBuffer();
     NoArvore *noLivro = buscarNoLivroArvore(arvore, codigoLivro);
     if(noLivro == NULL) {
-        printf("Erro: O livro nao existe.\n");
+        printf("Erro: O livro não existe.\n");
         return 1;
     }
     Fila* filaDeReservas = noLivro->filaEspera;
     if(filaDeReservas->inicio == NULL) {
-        printf("A fila de reservas esta vazia.\n");
+        printf("A fila de reservas está vazia.\n");
     } else {
         printf("==== Lista de reservas ====\n");
         exibirReservas(filaDeReservas);
@@ -337,7 +337,7 @@ int imprimirReservas(Arvore* arvore) {
 
 int exibirQuantidadeLivros(Arvore* arvore) {
     if(arvore->raiz == NULL) {
-        printf("A arvore esta vazia.\n");
+        printf("A árvore está vazia.\n");
     } else {
         int qtLivros = contarLivros(arvore);
         printf("Livros cadastrados: %d\n", qtLivros);
@@ -347,10 +347,10 @@ int exibirQuantidadeLivros(Arvore* arvore) {
 
 int exibirAlturaArvore(Arvore* arvore) {
     if(arvore->raiz == NULL) {
-        printf("A arvore esta vazia.\n");
+        printf("A árvore está vazia.\n");
     } else {
         int alturaArvore = calcularAlturaArvore(arvore);
-        printf("Altura da arvore: %d\n", alturaArvore);
+        printf("Altura da árvore: %d\n", alturaArvore);
     }
     return 1;
 }

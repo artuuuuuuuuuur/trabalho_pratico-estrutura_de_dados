@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include "src/interfaces/acoes.h"
 #include "src/utils/utils.h"
+#include <locale.h>
 
 int main(void) {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
     // Inicializando TADs
     Arvore *arvore = criarArvore();
     Lista *lista = criarLista();
@@ -14,16 +16,16 @@ int main(void) {
         printf("========== Menu Principal ==========\n");
         printf("1 - Cadastrar Novo Livro\n");
         printf("2 - Buscar Livro\n");
-        printf("3 - Listar livros em ordem crescente de codigo\n");
-        printf("4 - Listar livros em pre - ordem\n");
-        printf("5 - Listar livros em pos - ordem\n");
-        printf("6 - Realizar emprestimo de livro\n");
+        printf("3 - Listar livros em ordem crescente de código\n");
+        printf("4 - Listar livros em pré - ordem\n");
+        printf("5 - Listar livros em pós - ordem\n");
+        printf("6 - Realizar empréstimo de livro\n");
         printf("7 - Devolver livro\n");
         printf("8 - Remover livro\n");
         printf("9 - Exibir fila de reservas\n");
-        printf("10 - Exibir historico de emprestimos\n");
+        printf("10 - Exibir histórico de empréstimos\n");
         printf("11 - Exibir quantidade de livros cadastrados\n");
-        printf("12 - Exibir altura da arvore\n");
+        printf("12 - Exibir altura da árvore\n");
         printf("0 - Sair\n");
         scanf("%d", &opcao);
         limparBuffer();

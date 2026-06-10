@@ -32,12 +32,12 @@ void exibirLivro(Livro *livro)
 {
     if (livro != NULL)
     {
-        printf("Codigo: %d\n", livro->codigo);
-        printf("Titulo: %s\n", livro->titulo);
+        printf("Código: %d\n", livro->codigo);
+        printf("Título: %s\n", livro->titulo);
         printf("Autor: %s\n", livro->autor);
         printf("Ano: %d\n", livro->ano);
         printf("Quantidade Total: %d\n", livro->quantidadeTotal);
-        printf("Quantidade Disponivel: %d\n", livro->quantidadeDisponivel);
+        printf("Quantidade Disponível: %d\n", livro->quantidadeDisponivel);
     }
 }
 

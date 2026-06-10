@@ -8,7 +8,7 @@
 NoArvore* criarNo(Livro *livro) {
     NoArvore *novo = (NoArvore*) malloc(sizeof(NoArvore));
     if (novo == NULL) {
-        printf("Erro ao alocar memoria para o novo no da arvore.\n");
+        printf("Erro ao alocar memória para o novo nó da árvore.\n");
         return NULL;
     }
 
@@ -169,7 +169,7 @@ void listarLivrosEmOrdem ( Arvore * arvore ){
         Arvore subArvore;
         subArvore.raiz = no->esquerda;
         listarLivrosEmOrdem(&subArvore);
-        printf("- Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
+        printf("- Código: %d, Título: %s\n", no -> livro -> codigo, no -> livro -> titulo);
         subArvore.raiz = no->direita;
         listarLivrosEmOrdem(&subArvore);
     }
@@ -178,7 +178,7 @@ void listarLivrosEmOrdem ( Arvore * arvore ){
 void listarLivrosPreOrdem ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
     if (no != NULL){
-        printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
+        printf("Código: %d, Título: %s\n", no -> livro -> codigo, no -> livro -> titulo);
         Arvore subArvore;
         subArvore.raiz = no->esquerda;
         listarLivrosPreOrdem(&subArvore);
@@ -195,7 +195,7 @@ void listarLivrosPosOrdem ( Arvore * arvore ){
         listarLivrosPosOrdem(&subArvore);
         subArvore.raiz = no->direita;
         listarLivrosPosOrdem(&subArvore);
-        printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
+        printf("Código: %d, Título: %s\n", no -> livro -> codigo, no -> livro -> titulo);
     }
 };
 
@@ -223,7 +223,7 @@ int calcularAlturaArvore ( Arvore * arvore ){
 
 NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
     if(raiz == NULL) {
-        printf("Erro: arvore vazia.\n");
+        printf("Erro: árvore vazia.\n");
         return raiz;
     }
     
