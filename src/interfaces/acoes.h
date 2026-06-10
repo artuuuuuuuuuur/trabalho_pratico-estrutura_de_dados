@@ -7,7 +7,7 @@
 #define ACOES_H
 
 int cadastrarNovoLivro(Arvore *arvore);
-int removerLivro(Livro *livro, Arvore *arvore, Lista* emprestimos, Fila* reservas);
+int removerLivro(Arvore *arvore, Lista* emprestimos);
 int buscarLivroPorCodigo(Arvore* arvore);
 int listarLivrosCrescente(Arvore* arvore);
 int listarLivrosPre(Arvore* arvore);

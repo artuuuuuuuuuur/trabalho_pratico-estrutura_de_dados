@@ -51,15 +51,28 @@ int cadastrarNovoLivro(Arvore* arvore) {
     return 1;
 }
 
-int removerLivro(Livro *livro, Arvore *arvore, Lista* emprestimos, Fila* reservas) {
-    if (livro == NULL) {
-        printf("Erro: o livro nao existe.\n");
-        return 0;
-    }
+int removerLivro(Arvore *arvore, Lista* emprestimos) {
+    printf("======= Remover Livros =======\n");
     if (arvore == NULL) {
         printf("Erro: a arvore nao existe.\n");
-        return 0;    
+        return 1;
     }
+    
+    int codigoLivro = -1;
+    printf("  Código: ");
+    if (scanf("%d", &codigoLivro) != 1) {
+        printf("Erro: entrada invalida para o código.\n");
+        limparBuffer();
+        return 1;
+    }
+    limparBuffer();
+
+    NoArvore* noArvore = buscarNoLivroArvore(arvore, codigoLivro);
+    if (noArvore == NULL) {
+        printf("Erro: o livro nao existe.\n");
+        return 1;
+    }
+    Livro *livro = noArvore->livro;
 
     // Tratamento de exceções
     bool emprestimoEncontrado = false;
@@ -71,26 +84,22 @@ int removerLivro(Livro *livro, Arvore *arvore, Lista* emprestimos, Fila* reserva
             else temp = temp->prox;
         }
     }
-    
-    if(reservas->inicio != NULL) { // Livro reservado
-        NoFila *temp = reservas->inicio;
-        while (temp != NULL && !reservaEncontrada) {
-            if (temp->reserva.codigoLivro == livro->codigo) reservaEncontrada = true;
-            else temp = temp->prox;
-        }
-    }
+
+    Fila *reservas = noArvore->filaEspera;
+    if(reservas != NULL && reservas->inicio != NULL) reservaEncontrada = true; // Livro reservado
     
     if(emprestimoEncontrado || reservaEncontrada) {
         printf("Erro: Você precisa quitar todas as pendencias do livro.\n");
-        char errorMessage[100]= "Ha pendencias de ";
-        if(emprestimoEncontrado) strcat(errorMessage, "emprestimos ");
-        if(emprestimoEncontrado && reservaEncontrada) strcat(errorMessage, "e ");
-        if(reservaEncontrada) strcat(errorMessage, "reservas ");
-        printf("$s.\n", errorMessage);
-        return 0;
+        char errorMessage[100] = "Ha pendencias de ";
+        if(emprestimoEncontrado) strcat(errorMessage, "emprestimos");
+        if(emprestimoEncontrado && reservaEncontrada) strcat(errorMessage, " e ");
+        if(reservaEncontrada) strcat(errorMessage, "reservas");
+        printf("%s.\n", errorMessage);
+        return 1;
     }
     
     arvore->raiz = removerNoLivro(arvore->raiz, livro);
+    printf("Livro removido com sucesso.\n");
     return 1;
 }
 
@@ -246,7 +255,7 @@ int devolverLivro(Arvore* arvore, Lista* listaDeEmprestimos) {
         printf("Erro: entrada invalida para o codigo.\n");
         limparBuffer();
         getchar();
-        return 0;
+        return 1;
     }
     Livro *livroEncontrado = buscarLivroArvore(arvore, codigoLivro);
     if(livroEncontrado == NULL) {
@@ -281,6 +290,7 @@ int devolverLivro(Arvore* arvore, Lista* listaDeEmprestimos) {
         no = no->prox;
     }
     printf("Nao foi possível devolver o livro.\n");
+    return 1;
 }
 
 int imprimirEmprestimos(Lista* listaDeEmprestimos) {

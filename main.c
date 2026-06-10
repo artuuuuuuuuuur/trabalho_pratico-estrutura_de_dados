@@ -19,10 +19,11 @@ int main(void) {
         printf("5 - Listar livros em pos - ordem\n");
         printf("6 - Realizar emprestimo de livro\n");
         printf("7 - Devolver livro\n");
-        printf("8 - Exibir fila de reservas\n");
-        printf("9 - Exibir historico de emprestimos\n");
-        printf("10 - Exibir quantidade de livros cadastrados\n");
-        printf("11 - Exibir altura da arvore\n");
+        printf("8 - Remover livro\n");
+        printf("9 - Exibir fila de reservas\n");
+        printf("10 - Exibir historico de emprestimos\n");
+        printf("11 - Exibir quantidade de livros cadastrados\n");
+        printf("12 - Exibir altura da arvore\n");
         printf("0 - Sair\n");
         scanf("%d", &opcao);
         limparBuffer();
@@ -72,22 +73,28 @@ int main(void) {
             case 8: {
                 system("cls");
                 int status = -1;
-                while (status == -1 || status == 0) status = imprimirReservas(arvore);
+                while (status == -1 || status == 0) status = removerLivro(arvore, lista);
                 break;
             }
             case 9: {
                 system("cls");
                 int status = -1;
-                while (status == -1 || status == 0) status = imprimirEmprestimos(lista);
+                while (status == -1 || status == 0) status = imprimirReservas(arvore);
                 break;
             }
             case 10: {
                 system("cls");
                 int status = -1;
-                while (status == -1 || status == 0) status = exibirQuantidadeLivros(arvore);
+                while (status == -1 || status == 0) status = imprimirEmprestimos(lista);
                 break;
             }
             case 11: {
+                system("cls");
+                int status = -1;
+                while (status == -1 || status == 0) status = exibirQuantidadeLivros(arvore);
+                break;
+            }
+            case 12: {
                 system("cls");
                 int status = -1;
                 while (status == -1 || status == 0) status = exibirAlturaArvore(arvore);
