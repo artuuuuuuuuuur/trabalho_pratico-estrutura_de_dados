@@ -113,5 +113,9 @@ int main(void) {
         getchar();
     } while(opcao != 0);
 
+    // Liberação da memória utilizada pelas estruturas dinâmicas
+    liberarArvore(arvore->raiz);
+    liberarLista(lista);
+
     return 0;
 }

@@ -26,4 +26,6 @@ void listarEmprestimos ( Lista * lista ) ;
 
 int listaVazia ( Lista * lista ) ;
 
+void liberarLista(Lista *lista);
+
 #endif

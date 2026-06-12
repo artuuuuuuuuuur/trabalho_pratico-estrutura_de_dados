@@ -5,6 +5,6 @@
 #define UTILS_H
 
 void limparBuffer();
-void getString(char texto[], char *string);
+void getString(char texto[], char *string, size_t tamanho);
 
 #endif

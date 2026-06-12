@@ -62,3 +62,13 @@ void exibirReservas( Fila * fila ){
         temp = temp->prox;
     }
 };
+
+void liberarFila(Fila *fila) {
+    NoFila* atual = fila->inicio;
+    while (atual != NULL) {
+        NoFila* temp = atual;
+        atual = atual->prox;
+        free(temp);
+    }
+    free(fila);
+};

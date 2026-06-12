@@ -5,8 +5,8 @@ void limparBuffer() {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-void getString(char texto[], char *string) {
+void getString(char texto[], char *string, size_t tamanho) {
     printf("%s", texto);
-    fgets(string, sizeof(string), stdin);
+    fgets(string, tamanho, stdin);
     string[strcspn(string, "\n")] = 0;
 }
