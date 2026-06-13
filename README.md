@@ -6,6 +6,21 @@
 
 ---
 
+## 🗺️ Sumário
+
+- [👥 Equipe](#-equipe)
+- [📋 Descrição do Sistema](#-descrição-do-sistema)
+- [🗂️ Estrutura do Projeto](#️-estrutura-do-projeto)
+- [⚙️ Compilação](#️-compilação)
+- [▶️ Execução](#️-execução)
+- [🖥️ Menu do Sistema](#️-menu-do-sistema)
+- [💡 Exemplos de Uso](#-exemplos-de-uso)
+- [✅ Funcionalidades Implementadas](#-funcionalidades-implementadas)
+- [⚠️ Limitações Conhecidas](#️-limitações-conhecidas)
+- [📊 Complexidade das Operações](#-complexidade-das-operações)
+
+---
+
 ## 👥 Equipe
 
 | Nome                                  |
@@ -59,9 +74,9 @@ trabalho_biblioteca/
 │       ├── utils.h               # Utilitários (leitura de input, buffer)
 │       └── utils.c               # Implementação dos utilitários
 │
-├── main.c                        # Comando PowerShell para compilar projeto de forma simples
+├── build.ps1                     # Script PowerShell para compilação simplificada (Windows)
+├── .gitignore                    # Arquivos e diretórios ignorados pelo Git
 └── README.md                     # Este arquivo
-└── .gitignore                    # Especificação de arquivos/diretórios a serem ignorados pelo Git
 ```
 
 ---
@@ -75,13 +90,13 @@ trabalho_biblioteca/
 
 ### Comando de compilação
 
-Caso você esteja em um Windows, execute:
+**Windows (PowerShell):**
 
 ```bash
 ./build.ps1
 ```
 
-Se não,
+**Linux / macOS:**
 
 ```bash
 gcc main.c src/interfaces/acoes.c src/TAD/livro.c src/TAD/arvore.c src/TAD/fila.c src/TAD/listaEncadeada.c src/utils/utils.c -o biblioteca
@@ -111,7 +126,7 @@ gcc -Wall -Wextra main.c src/interfaces/acoes.c src/TAD/livro.c src/TAD/arvore.c
 biblioteca.exe
 ```
 
-**Windows PowerShell:**
+**Windows (PowerShell — compila e executa):**
 
 ```bash
 ./build.ps1
