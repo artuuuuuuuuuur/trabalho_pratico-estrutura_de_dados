@@ -1,6 +1,7 @@
 # 📚 Sistema de Gerenciamento de Biblioteca
 
 > Trabalho Prático — Estrutura de Dados (2026.1) | UECE
+>
 > Professor: Bonfim Amaro Junior
 
 ---
@@ -35,7 +36,7 @@ O sistema permite cadastrar livros, realizar buscas, controlar empréstimos e de
 
 ## 🗂️ Estrutura do Projeto
 
-```
+```text
 trabalho_biblioteca/
 │
 ├── main.c                        # Menu principal e integração dos módulos
@@ -120,7 +121,7 @@ biblioteca.exe
 
 ## 🖥️ Menu do Sistema
 
-```
+```text
 ========== Menu Principal ==========
 1  - Cadastrar Novo Livro
 2  - Buscar Livro
@@ -144,7 +145,7 @@ biblioteca.exe
 
 ### 1. Cadastrando um livro
 
-```
+```text
 === Cadastrar Livro ===
   Codigo: 101
   Titulo (max 99 char): Algoritmos em C
@@ -159,7 +160,7 @@ Livro cadastrado com sucesso.
 
 ### 2. Buscando um livro
 
-```
+```text
 === Buscar livro por codigo ===
 Codigo: 101
 
@@ -175,7 +176,7 @@ Quantidade Disponível: 3
 
 ### 3. Realizando um empréstimo com exemplar disponível
 
-```
+```text
 ======= Empréstimo de Livros =======
   Codigo: 101
   Nome do Usuario: João Silva
@@ -185,7 +186,7 @@ Empréstimo feito com sucesso!
 
 ### 4. Tentando emprestar livro sem exemplares disponíveis
 
-```
+```text
 ======= Empréstimo de Livros =======
   Codigo: 101
   Nome do Usuario: Maria Souza
@@ -198,7 +199,7 @@ Adicionado à fila de reservas!
 
 ### 5. Devolvendo um livro com reservas pendentes (atendimento automático)
 
-```
+```text
 ======= Devolução de Livros =======
   Codigo: 101
   Nome do Usuario: João Silva
@@ -210,7 +211,7 @@ Empréstimo deletado.
 
 ### 6. Removendo um livro
 
-```
+```text
 ======= Remover Livros =======
   Código: 101
 
@@ -221,7 +222,7 @@ Livro removido com sucesso.
 
 ### 7. Listagem em ordem crescente de código
 
-```
+```text
 ==== Lista de livros em ordem crescente ====
 - Código: 50,  Título: The C Programming Language
 - Código: 101, Título: Algoritmos em C
