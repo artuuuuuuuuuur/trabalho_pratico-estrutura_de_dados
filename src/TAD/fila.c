@@ -39,12 +39,14 @@ Reserva desenfileirarReserva( Fila * fila ){
         return vazia;
     }
     NoFila* temp = fila->inicio;
+    Reserva reservaRemovida = temp->reserva;
     fila->inicio = temp->prox;
     if(fila->inicio == NULL){
         fila->fim = NULL;
     }
-    temp->prox = NULL;
-    return temp->reserva;
+    free(temp);
+    temp = NULL;
+    return reservaRemovida;
 };
 
 int filaVazia( Fila * fila ){
