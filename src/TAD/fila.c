@@ -16,7 +16,7 @@ Fila * criarFila(){
 void enfileirarReserva( Fila * fila , Reserva reserva ){
     NoFila* novo = (NoFila*) malloc(sizeof(NoFila));
     if (novo == NULL){
-        printf("Erro ao alocar memoria para reserva.\n");
+        printf("Erro ao alocar memória para reserva.\n");
         return;
     }
     novo->reserva = reserva;
@@ -32,7 +32,7 @@ void enfileirarReserva( Fila * fila , Reserva reserva ){
 
 Reserva desenfileirarReserva( Fila * fila ){
     if(filaVazia(fila)){
-        printf("Fila vazia. Nao ha reservas para desenfilerar.\n");
+        printf("Fila vazia. Não há reservas para desenfilerar.\n");
         Reserva vazia;
         strcpy(vazia.nomeUsuario, "");
         vazia.codigoLivro = -1;
@@ -53,12 +53,12 @@ int filaVazia( Fila * fila ){
 
 void exibirReservas( Fila * fila ){
     if(filaVazia(fila)){
-        printf("Fila vazia. Nao ha reservas para exibir.\n");
+        printf("Fila vazia. Nao há reservas para exibir.\n");
         return;
     }
     NoFila* temp = fila->inicio;
     while (temp != NULL){
-        printf("- Usuario: %s\n- Codigo do Livro: %d\n", temp->reserva.nomeUsuario, temp->reserva.codigoLivro);
+        printf("- Usuário: %s\n- Código do Livro: %d\n", temp->reserva.nomeUsuario, temp->reserva.codigoLivro);
         temp = temp->prox;
     }
 };

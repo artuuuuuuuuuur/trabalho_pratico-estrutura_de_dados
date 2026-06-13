@@ -15,7 +15,7 @@ Lista * criarLista () {
 void inserirEmprestimo ( Lista * lista , Emprestimo emprestimo ){
     NoLista* novo = (NoLista*) malloc(sizeof(NoLista));
     if(novo == NULL){
-        printf("Erro ao alocar memoria para emprestimo.\n");
+        printf("Erro ao alocar memória para empréstimo.\n");
         return;
     }
     novo->emprestimo = emprestimo;
@@ -33,7 +33,7 @@ void inserirEmprestimo ( Lista * lista , Emprestimo emprestimo ){
 
 void deletarEmprestimo(Lista * lista , Emprestimo emprestimo ){
     if(lista->inicio == NULL){
-        printf("A lista esta vazia.\n");
+        printf("A lista está vazia.\n");
         return;
     } else {
         NoLista* curr = lista->inicio;
@@ -47,26 +47,26 @@ void deletarEmprestimo(Lista * lista , Emprestimo emprestimo ){
                 prev->prox = curr->prox;
                 }
                 free(curr);
-                printf("Emprestimo deletado.\n");
+                printf("Empréstimo deletado.\n");
                 return ;
             }
             prev = curr;
             curr = curr->prox;
         }
-        printf("Emprestimo nao encontrado.\n");
+        printf("Empréstimo não encontrado.\n");
     }
 };
 
 void listarEmprestimos ( Lista * lista ){
     if(listaVazia(lista)){
-        printf("Lista vazia. Nao ha emprestimos para exibir.\n");
+        printf("Lista vazia. Não há empréstimos para exibir.\n");
         return;
     }
     NoLista* temp = lista->inicio;
     while(temp != NULL){
-        printf("Usuario: %s\n", temp->emprestimo.nomeUsuario);
-        printf("Codigo do Livro: %d\n", temp->emprestimo.codigoLivro);
-        printf("Titulo do Livro: %s\n", temp->emprestimo.tituloLivro);
+        printf("Usuário: %s\n", temp->emprestimo.nomeUsuario);
+        printf("Código do Livro: %d\n", temp->emprestimo.codigoLivro);
+        printf("Título do Livro: %s\n", temp->emprestimo.tituloLivro);
         printf("-------------------------\n");
         temp = temp->prox;
     }
