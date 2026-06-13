@@ -8,12 +8,13 @@
 NoArvore* criarNo(Livro *livro) {
     NoArvore *novo = (NoArvore*) malloc(sizeof(NoArvore));
     if (novo == NULL) {
-        printf("Erro ao alocar memoria para o novo no da arvore.\n");
+        printf("Erro ao alocar memória para o novo nó da árvore.\n");
         return NULL;
     }
 
     novo->livro = livro;
     novo->altura = 0;
+    novo->filaEspera = criarFila();
     novo->esquerda = NULL;
     novo->direita = NULL;
 
@@ -148,13 +149,27 @@ Livro * buscarLivroArvore ( Arvore * arvore , int codigo ){
     return NULL;
 };
 
+NoArvore * buscarNoLivroArvore ( Arvore * arvore , int codigo ){
+    NoArvore* atual = arvore -> raiz;
+    while (atual != NULL){
+        if (codigo == atual -> livro -> codigo){
+            return atual;
+        }else if (codigo < atual -> livro -> codigo){
+            atual = atual -> esquerda;
+        }else{
+            atual = atual -> direita;
+        }
+    }
+    return NULL;
+};
+
 void listarLivrosEmOrdem ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
     if (no != NULL){
         Arvore subArvore;
         subArvore.raiz = no->esquerda;
         listarLivrosEmOrdem(&subArvore);
-        printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
+        printf("- Código: %d, Título: %s\n", no -> livro -> codigo, no -> livro -> titulo);
         subArvore.raiz = no->direita;
         listarLivrosEmOrdem(&subArvore);
     }
@@ -163,7 +178,7 @@ void listarLivrosEmOrdem ( Arvore * arvore ){
 void listarLivrosPreOrdem ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
     if (no != NULL){
-        printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
+        printf("Código: %d, Título: %s\n", no -> livro -> codigo, no -> livro -> titulo);
         Arvore subArvore;
         subArvore.raiz = no->esquerda;
         listarLivrosPreOrdem(&subArvore);
@@ -180,7 +195,7 @@ void listarLivrosPosOrdem ( Arvore * arvore ){
         listarLivrosPosOrdem(&subArvore);
         subArvore.raiz = no->direita;
         listarLivrosPosOrdem(&subArvore);
-        printf("Codigo: %d, Titulo: %s\n", no -> livro -> codigo, no -> livro -> titulo);
+        printf("Código: %d, Título: %s\n", no -> livro -> codigo, no -> livro -> titulo);
     }
 };
 
@@ -204,4 +219,69 @@ int calcularAlturaArvore ( Arvore * arvore ){
     }
 
     return no->altura;
+};
+
+NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
+    if(raiz == NULL) {
+        printf("Erro: árvore vazia.\n");
+        return raiz;
+    }
+    
+    // Busca, recursivamente, o nó pelo código do livro
+    if(livro->codigo < raiz->livro->codigo) {
+        raiz->esquerda = removerNoLivro(raiz->esquerda, livro);
+    } else if (livro->codigo > raiz->livro->codigo) {
+        raiz->direita = removerNoLivro(raiz->direita, livro);
+    } else {
+        // Encontrou o nó
+        
+        if ((raiz->esquerda == NULL) || (raiz->direita == NULL)) {  // Caso o nó possua 0 ou 1 filho
+            NoArvore *temp = raiz->esquerda ? raiz->esquerda : raiz->direita;
+            if(temp == NULL) { // Sem filhos
+                temp = raiz;
+                raiz = NULL;
+            } else { // 1 filho
+                *raiz = *temp; // Nó filho passa a ser a raiz atual
+            }
+            free(temp);
+            free(temp->livro);
+        } else { // Caso o nó possua 2 filhos
+            NoArvore *temp = menorValorNo(raiz->direita); // Procura sucessor em ordem
+            raiz->livro = temp->livro; // Substitui os ponteiros
+            raiz->direita = removerNoLivro(raiz->direita, temp->livro); // Remove o sucessor copiado
+        }
+    }
+    
+    if(raiz == NULL) return raiz;
+    raiz->altura = 1 + maior(raiz->esquerda->altura, raiz->direita->altura);
+    int fb = fatorBalanceamento(raiz);
+    
+    // Rebalanceamento
+    // - Caso Esquerda-Esquerda (LL)
+    if(fb > 1 && fatorBalanceamento(raiz->esquerda) >= 0) {
+        return rotacaoDireita(raiz);
+    }
+    // - Caso Esquerda-Direita (LR)
+    if(fb > 1 && fatorBalanceamento(raiz->esquerda) < 0) {
+        raiz->esquerda = rotacaoEsquerda(raiz->esquerda);
+        return rotacaoDireita(raiz);
+    }
+    // - Caso Direita-Direita (RR)
+    if(fb < -1 && fatorBalanceamento(raiz->direita) <= 0) {
+        return rotacaoEsquerda(raiz);
+    }
+    // - Caso Direita-Esquerda (RL)
+    if(fb < -1 && fatorBalanceamento(raiz->direita) > 0) {
+        raiz->direita = rotacaoDireita(raiz->direita);
+        return rotacaoEsquerda(raiz);
+    }
+    return raiz;
+};
+
+NoArvore* menorValorNo(NoArvore* no) {
+    NoArvore* atual = no;
+    while (atual->esquerda != NULL) {
+        atual = atual->esquerda;
+    }
+    return atual;
 };

@@ -26,4 +26,6 @@ int filaVazia( Fila * fila );
 
 void exibirReservas( Fila * fila );
 
+void liberarFila(Fila *fila);
+
 #endif
