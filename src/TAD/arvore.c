@@ -276,7 +276,7 @@ NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
         return rotacaoEsquerda(raiz);
     }
     return raiz;
-}
+};
 
 NoArvore* menorValorNo(NoArvore* no) {
     NoArvore* atual = no;
@@ -284,4 +284,4 @@ NoArvore* menorValorNo(NoArvore* no) {
         atual = atual->esquerda;
     }
     return atual;
-}
+};

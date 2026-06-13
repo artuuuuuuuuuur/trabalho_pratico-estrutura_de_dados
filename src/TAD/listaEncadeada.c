@@ -75,3 +75,13 @@ void listarEmprestimos ( Lista * lista ){
 int listaVazia ( Lista * lista ) {
     return lista->inicio == NULL;
 };
+
+void liberarLista(Lista *lista) {
+    NoLista* atual = lista->inicio;
+    while (atual != NULL) {
+        NoLista* temp = atual;
+        atual = atual->prox;
+        free(temp);
+    }
+    free(lista);
+};

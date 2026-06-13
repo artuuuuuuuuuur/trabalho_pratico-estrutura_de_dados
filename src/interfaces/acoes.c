@@ -13,10 +13,18 @@ int cadastrarNovoLivro(Arvore* arvore) {
     }
 
     char tituloLivro[100], autorLivro[100];
-    int anoLivro, quantidadeTotalLivro;
+    int anoLivro, quantidadeTotalLivro, codigo;
     printf("=== Cadastrar Livro ===\n");
-    getString("  Titulo (max 99 char): ", tituloLivro);
-    getString("  Autor (max 99 char): ", autorLivro);
+    printf("  Codigo: ");
+    if (scanf("%d", &codigo) != 1 || buscarLivroArvore(arvore, codigo)!=NULL) {
+        printf("Erro: entrada invalida para o codigo ou codigo ja existe.\n");
+        limparBuffer();
+        getchar();
+        return 0;
+    }
+    limparBuffer();
+    getString("  Titulo (max 99 char): ", tituloLivro, sizeof(tituloLivro));
+    getString("  Autor (max 99 char): ", autorLivro, sizeof(autorLivro));
     printf("  Ano: ");
     if (scanf("%d", &anoLivro) != 1) {
         printf("Erro: entrada invalida para o ano.\n");
@@ -40,7 +48,7 @@ int cadastrarNovoLivro(Arvore* arvore) {
         return 0;
     }
 
-    Livro *novoLivro = criarLivro(contarLivros(arvore) + 1, tituloLivro, autorLivro, anoLivro, quantidadeTotalLivro);
+    Livro *novoLivro = criarLivro(codigo, tituloLivro, autorLivro, anoLivro, quantidadeTotalLivro);
     if(novoLivro) {
         inserirLivroArvore(arvore, novoLivro);
         printf("Livro cadastrado com sucesso.\n");
@@ -188,7 +196,7 @@ int emprestimoLivro(Arvore *arvore, Lista* listaDeEmprestimos) {
         return 1;
     }
     getchar();
-    getString("  Nome do Usuario: ", nomeUsuario);
+    getString("  Nome do Usuario: ", nomeUsuario, sizeof(nomeUsuario));
     if(livroEncontrado->quantidadeDisponivel > 0) { // Empresta apenas se tiver livros
         Emprestimo novo_emprestimo;
         novo_emprestimo.codigoLivro = livroEncontrado->codigo;
@@ -263,7 +271,7 @@ int devolverLivro(Arvore* arvore, Lista* listaDeEmprestimos) {
         return 1;
     }
     getchar();
-    getString("  Nome do Usuario: ", nomeUsuario);
+    getString("  Nome do Usuario: ", nomeUsuario, sizeof(nomeUsuario));
 
     NoArvore *noLivro = buscarNoLivroArvore(arvore, codigoLivro);
     Fila* filaDeReservas = noLivro->filaEspera;
