@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "src/interfaces/acoes.h"
 #include "src/utils/utils.h"
+#include "src/utils/file_manager/arquivo.h"
 #include <locale.h>
 
 int main(void) {
@@ -9,6 +10,12 @@ int main(void) {
     // Inicializando TADs
     Arvore *arvore = criarArvore();
     Lista *lista = criarLista();
+    
+    printf("======== Carregando dados ========\n");
+    carregarLivros(arvore);          /* 1º: livros (inclui quantidadeDisponivel) */
+    carregarEmprestimos(lista);      /* 2º: empréstimos ativos                   */
+    carregarReservas(arvore);        /* 3º: filas de espera por livro            */
+    printf("==================================\n\n");
 
     int opcao;
     do {
@@ -115,6 +122,11 @@ int main(void) {
         getchar();
     } while(opcao != 0);
 
+    printf("\n======== Salvando dados ========\n");
+    salvarTodosLivros(arvore);
+    salvarTodosEmprestimos(lista);
+    salvarTodasReservas(arvore);
+    printf("================================\n");
     // Liberação da memória utilizada pelas estruturas dinâmicas
     liberarArvore(arvore->raiz);
     liberarLista(lista);
