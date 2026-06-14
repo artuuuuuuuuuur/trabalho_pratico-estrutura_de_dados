@@ -1,3 +1,4 @@
 *.exe
 .vscode
 src/TAD/test.c
+/data
