@@ -275,16 +275,12 @@ Livro removido com sucesso.
 - [x] **Fila de reservas vinculada ao nó** — cada livro possui sua própria fila, eliminando ambiguidade
 - [x] **Módulo `utils`** — funções auxiliares de leitura segura de strings (`getString`) e limpeza de buffer (`limparBuffer`)
 - [x] **Módulo `acoes`** — camada de interface entre o menu e as estruturas de dados, com retorno de status para controle de fluxo
-
-### Planejado / Em desenvolvimento
-
-- [ ] Salvamento e carregamento de dados em arquivo
+- [x] Salvamento e carregamento de dados em arquivo
 
 ---
 
 ## ⚠️ Limitações Conhecidas
 
-- Os dados **não são persistidos** entre execuções — ao fechar o programa, todas as informações são perdidas (funcionalidade de arquivo planejada)
 - A busca é feita **exclusivamente por código**; busca por título ou autor não está disponível
 - O comando `system("cls")` para limpar a tela é compatível apenas com **Windows**. Em Linux/macOS, substitua por `system("clear")`
 
