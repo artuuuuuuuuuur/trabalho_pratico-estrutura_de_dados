@@ -60,7 +60,7 @@ void exibirReservas( Fila * fila ){
     }
     NoFila* temp = fila->inicio;
     while (temp != NULL){
-        printf("- Usuário: %s\n- Código do Livro: %d\n", temp->reserva.nomeUsuario, temp->reserva.codigoLivro);
+        printf("- Usuário: %s\n- Código do Livro: %d\n_______\n", temp->reserva.nomeUsuario, temp->reserva.codigoLivro);
         temp = temp->prox;
     }
 };

@@ -112,6 +112,8 @@ void liberarArvore(NoArvore *no) {
         liberarArvore(no->esquerda);
         liberarArvore(no->direita);
         free(no->livro);
+        while(!filaVazia(no->filaEspera)) desenfileirarReserva(no->filaEspera);
+        free(no->filaEspera);
         free(no);
     }
 };
