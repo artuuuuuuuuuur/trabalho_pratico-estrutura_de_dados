@@ -1,10 +1,8 @@
+#include "../../TAD/arvore.h"
+#include "../../TAD/listaEncadeada.h"
+
 #ifndef ARQUIVO_H
 #define ARQUIVO_H
-
-#include "TAD/livro.h"
-#include "TAD/arvore.h"
-#include "TAD/listaEncadeada.h"
-#include "TAD/fila.h"
 
 /* Livros ------------------------------------------------------------------ */
 void salvarTodosLivros(Arvore *arvore);

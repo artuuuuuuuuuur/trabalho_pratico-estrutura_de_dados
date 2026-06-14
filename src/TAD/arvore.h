@@ -1,6 +1,9 @@
 #include "livro.h"
 #include "fila.h"
 
+#ifndef ARVORE_H
+#define ARVORE_H
+
 typedef struct NoArvore {
     Livro * livro;
     int altura;
@@ -52,3 +55,5 @@ void liberarArvore(NoArvore *no);
 NoArvore * buscarNoLivroArvore ( Arvore * arvore , int codigo );
 
 NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro);
+
+#endif
