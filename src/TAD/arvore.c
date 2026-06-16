@@ -22,13 +22,11 @@ NoArvore* criarNo(Livro *livro) {
 };
 
 int fatorBalanceamento(NoArvore *n) {
-    if (n == NULL) {
+    if(n == NULL){
         return 0;
     }
-    Arvore left, right;
-    left.raiz = n->esquerda;
-    right.raiz = n->direita;
-    return calcularAlturaArvore(&left) - calcularAlturaArvore(&right);
+
+    return altura(n->esquerda) - altura(n->direita);
 };
 
 int maior(int a, int b) {
@@ -201,19 +199,16 @@ void listarLivrosPosOrdem ( Arvore * arvore ){
     }
 };
 
-int contarLivros ( Arvore * arvore ){
-    NoArvore * no = arvore -> raiz;
-    Arvore * subArvoreEsquerda = (Arvore *) malloc(sizeof(Arvore));
-    Arvore * subArvoreDireita = (Arvore *) malloc(sizeof(Arvore));
-    if (no == NULL){
+int contarLivros(Arvore *arvore){
+    NoArvore *no = arvore->raiz;
+    if(no == NULL){
         return 0;
-    }else{
-        subArvoreEsquerda->raiz = no->esquerda;
-        subArvoreDireita->raiz = no->direita;
-        return 1 + contarLivros(subArvoreEsquerda) + contarLivros(subArvoreDireita);
     }
-};
 
+    Arvore esq = { no->esquerda };
+    Arvore dir = { no->direita };
+    return 1 + contarLivros(&esq) + contarLivros(&dir);
+}
 int calcularAlturaArvore ( Arvore * arvore ){
     NoArvore * no = arvore -> raiz;
     if (no == NULL){
@@ -237,17 +232,32 @@ NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
     } else {
         // // Encontrou o nó
         if ((raiz->esquerda == NULL) || (raiz->direita == NULL)) {  // Caso o nó possua 0 ou 1 filho
-            NoArvore *temp = (!raiz->esquerda) ? raiz->esquerda : raiz->direita;
-            if(temp == NULL) { // Sem filhos
-                temp = raiz;
-                raiz = NULL;
-            } else { // 1 filho
-                *raiz = *temp; // Nó filho passa a ser a raiz atual
+            NoArvore *temp = raiz->esquerda ? raiz->esquerda : raiz->direita;
+            if (temp == NULL) {
+                free(raiz->livro);
+                free(raiz->filaEspera);
+                free(raiz);
+
+                return NULL;
+
+            } else {
+                Livro *livroAntigo = raiz->livro;
+                Fila *filaAntiga = raiz->filaEspera;
+
+                *raiz = *temp;
+
+                free(livroAntigo);
+                free(filaAntiga);
+                free(temp);
             }
-            free(temp);
         } else { // Caso o nó possua 2 filhos
             NoArvore *temp = menorValorNo(raiz->direita); // Procura sucessor em ordem
-            raiz->livro = temp->livro; // Substitui os ponteiros
+            Livro *livroAntigo = raiz->livro;
+            raiz->livro = temp->livro;
+            temp->livro = livroAntigo;
+            Fila *filaAntiga = raiz->filaEspera;
+            raiz->filaEspera = temp->filaEspera;
+            temp->filaEspera = filaAntiga;
             raiz->direita = removerNoLivro(raiz->direita, temp->livro); // Remove o sucessor copiado
         }
     }
