@@ -226,7 +226,7 @@ int calcularAlturaArvore ( Arvore * arvore ){
 NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
     if(raiz == NULL) {
         printf("Erro: árvore vazia.\n");
-        return raiz;
+        return NULL;
     }
     
     // Busca, recursivamente, o nó pelo código do livro
@@ -235,10 +235,9 @@ NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
     } else if (livro->codigo > raiz->livro->codigo) {
         raiz->direita = removerNoLivro(raiz->direita, livro);
     } else {
-        // Encontrou o nó
-        
+        // // Encontrou o nó
         if ((raiz->esquerda == NULL) || (raiz->direita == NULL)) {  // Caso o nó possua 0 ou 1 filho
-            NoArvore *temp = raiz->esquerda ? raiz->esquerda : raiz->direita;
+            NoArvore *temp = (!raiz->esquerda) ? raiz->esquerda : raiz->direita;
             if(temp == NULL) { // Sem filhos
                 temp = raiz;
                 raiz = NULL;
@@ -246,7 +245,6 @@ NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
                 *raiz = *temp; // Nó filho passa a ser a raiz atual
             }
             free(temp);
-            free(temp->livro);
         } else { // Caso o nó possua 2 filhos
             NoArvore *temp = menorValorNo(raiz->direita); // Procura sucessor em ordem
             raiz->livro = temp->livro; // Substitui os ponteiros
@@ -255,7 +253,7 @@ NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro) {
     }
     
     if(raiz == NULL) return raiz;
-    raiz->altura = 1 + maior(raiz->esquerda->altura, raiz->direita->altura);
+    raiz->altura = 1 + maior(altura(raiz->esquerda), altura(raiz->direita));
     int fb = fatorBalanceamento(raiz);
     
     // Rebalanceamento
@@ -286,4 +284,11 @@ NoArvore* menorValorNo(NoArvore* no) {
         atual = atual->esquerda;
     }
     return atual;
+};
+
+int altura(NoArvore *no){
+    if(no==NULL){
+        return -1;
+    }
+    return no->altura;
 };

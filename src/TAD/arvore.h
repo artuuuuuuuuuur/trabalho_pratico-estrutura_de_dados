@@ -56,4 +56,6 @@ NoArvore * buscarNoLivroArvore ( Arvore * arvore , int codigo );
 
 NoArvore* removerNoLivro(NoArvore *raiz, Livro *livro);
 
+int altura(NoArvore *no);
+
 #endif
