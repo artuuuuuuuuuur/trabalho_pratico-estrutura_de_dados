@@ -71,6 +71,9 @@ trabalho_biblioteca/
 │   │   └── listaEncadeada.c      # Implementação da Lista Encadeada
 │   │
 │   └── utils/
+│       ├── file_manager/         # Utilitários relacionados a gerenciamento de arquivos (leitura de csv, escrita em arquivos .csv)
+│       │   ├── arquivo.h         # Definição dos utilitários de arquivo
+│       │   └── arquivo.c         # Implementação dos utilitários de arquivo
 │       ├── utils.h               # Utilitários (leitura de input, buffer)
 │       └── utils.c               # Implementação dos utilitários
 │
